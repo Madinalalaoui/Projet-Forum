@@ -1,7 +1,28 @@
 
-function Message({auteur,date,contenu,reponses,id, onDelete, user}) { 
+import { useState } from 'react'; 
+
+function Message({auteur,date,contenu,reponses,id, onDelete, user, onReply}) { 
   
+  const [showReply, setShowReply] = useState(false);
+  const [texte, setTexte] = useState("");
   const canDelete = user && auteur === user.username;
+
+
+   const handleReply = (e) => { 
+    e.preventDefault();
+    if (!texte) return;
+
+    onReply(id, {
+      id: Date.now(),
+      auteur: user.username,
+      date: new Date().toLocaleString(),
+      contenu: texte,
+      reponses: []
+    });
+
+    setTexte("");
+    setShowReply(false);
+  }; 
 
   return (
     <li>
@@ -17,6 +38,22 @@ function Message({auteur,date,contenu,reponses,id, onDelete, user}) {
           </button>
         )}
 
+        {user && ( 
+          <button onClick={() => setShowReply(!showReply)}> 
+            + 
+          </button>
+        )}
+
+        {showReply && ( 
+          <form onSubmit={handleReply}> 
+            <textarea
+              value={texte}
+              onChange={(e) => setTexte(e.target.value)}
+            />
+            <button type="submit">Répondre</button>
+          </form>
+        )} 
+
         {reponses && reponses.length > 0 && (
           <ul>
             {reponses.map((rep,index) => (
@@ -29,6 +66,7 @@ function Message({auteur,date,contenu,reponses,id, onDelete, user}) {
                 id={rep.id}
                 onDelete={onDelete}
                 user={user}
+                onReply={onReply} 
               />
             ))}
           </ul>

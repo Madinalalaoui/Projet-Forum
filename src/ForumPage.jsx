@@ -6,17 +6,17 @@ import FormulaireSaisieMessage from './FormulaireSaisieMessage.jsx';
 function ForumPage({user, setPage}) {
   const [messages, setMessages] = useState([   //etat contenant tous les messages du forum
     {
+      id: 1,
       auteur: 'Utilisateur 1',
       date: '25/02/2026 10:00',
       contenu: 'helloo !',
-      reponses: [
-        { auteur: 'Utilisateur 2', date: '25/02/2026 10:05', contenu: 'hii !', reponses: [] }
-      ]
+      reponses: []
     },
     {
-      auteur: 'Utilisateur 3',
+      id: 2,
+      auteur: 'Utilisateur 2',
       date: '25/02/2026 11:00',
-      contenu: 'heyyy how are you ?',
+      contenu: 'im gonna go..',
       reponses: []
     }
   ]);
@@ -29,9 +29,19 @@ function ForumPage({user, setPage}) {
   setMessages(prev => prev.filter(msg => msg.id !== id));
 };
 
-const handleReply = (msg) => {
-  console.log("Répondre à :", msg);
-};
+const handleReply = (idMessage, reponse) => { 
+  setMessages(prev =>
+    prev.map(msg => {
+      if (msg.id === idMessage) {
+        return {
+          ...msg,
+          reponses: [...(msg.reponses || []), reponse]
+        };
+      }
+      return msg;
+    })
+  );
+}; 
 
   return (
     <div>
