@@ -25,23 +25,38 @@ function ForumPage({user, setPage}) {
     setMessages(prev => [msg, ...prev]); //ajoute le nouv msg en début de liste
   };
 
-  const handleDeleteMessage = (id) => { //supprimer un message
-  setMessages(prev => prev.filter(msg => msg.id !== id));
+const deleteRecursive = (messages, id) => {
+  return messages
+    .filter(msg => msg.id !== id)
+    .map(msg => ({
+      ...msg,
+      reponses: deleteRecursive(msg.reponses || [], id)
+    }));
+};
+
+const handleDeleteMessage = (id) => {
+  setMessages(prev => deleteRecursive(prev, id));
+};
+
+const addReplyRecursive = (messages, idMessage, reponse) => {
+  return messages.map(msg => {
+    if (msg.id === idMessage) {
+      return {
+        ...msg,
+        reponses: [...(msg.reponses || []), reponse]
+      };
+    }
+
+    return {
+      ...msg,
+      reponses: addReplyRecursive(msg.reponses || [], idMessage, reponse)
+    };
+  });
 };
 
 const handleReply = (idMessage, reponse) => { 
-  setMessages(prev =>
-    prev.map(msg => {
-      if (msg.id === idMessage) {
-        return {
-          ...msg,
-          reponses: [...(msg.reponses || []), reponse]
-        };
-      }
-      return msg;
-    })
-  );
-}; 
+  setMessages(prev => addReplyRecursive(prev, idMessage, reponse));
+};
 
   return (
     <div>
