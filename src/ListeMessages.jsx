@@ -1,16 +1,19 @@
-
 import Message from './Message.jsx';
 
-function MessageList({messages}) { /**affiche la liste de messages : un composant Message pour chacun des éléments du tableau 'messages'*/
+function MessageList({ messages, user, onReply }) {
   return (
     <ul>
-      {messages.map((msg,index) => (
-        <Message
-          auteur={msg.auteur}
-          date={msg.date}
-          contenu={msg.contenu}
-          reponses={msg.reponses}
-        />
+      {messages.map((msg, index) => (
+        <li key={index}>
+          <Message {...msg} />
+
+          {/* bouton réponse uniquement si connecté */}
+          {user && (
+            <button onClick={() => onReply(msg)}>
+              +
+            </button>
+          )}
+        </li>
       ))}
     </ul>
   );

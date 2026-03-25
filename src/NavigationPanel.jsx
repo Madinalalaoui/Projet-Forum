@@ -1,7 +1,4 @@
 
-import Login from './Login.jsx';
-import Logout from './Logout.jsx';
-
 function NavigationPanel({ isConnected,setPage,logout }) {
   return (
     <nav>

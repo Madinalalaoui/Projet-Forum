@@ -1,11 +1,12 @@
 import profilImg from './profil.png';
 import Utilisateur from './Utilisateur.jsx';
 
-function ProfilPage({ setPage }) {
+function ProfilPage({ setPage, user }) {
+  
   const currentUser = { /**objet qui représente l'utilisateur courrant */
-    username: "L_M",
-    firstName: "Lucas",
-    lastName: "Martin",
+    username: user.username,
+    firstName: user.firstName,
+    lastName: user.lastName,
     photo: profilImg
   };
 
@@ -28,22 +29,6 @@ function ProfilPage({ setPage }) {
         <section id="listsmsgs">
           <article>
             <p>Liste des messages :</p>
-            <ul>
-              <li>
-                <p><span>Utilisateur 1</span> -- <time>30/01/2024 à 13:53</time></p>
-                <blockquote>Ceci est un deuxième message (<button>+</button>)</blockquote>
-              </li>
-              <li>
-                <p><span>Utilisateur 2</span> -- <time>30/01/2024 à 13:51</time></p>
-                <blockquote>
-                  Ceci est un premier message (<button>+</button>)
-                  <div id="msg20240130-135210">
-                    <p><span>Utilisateur 1</span> -- <time>30/01/2024 à 13:52</time></p>
-                    <blockquote>Ceci est une réponse (<button>+</button>)</blockquote>
-                  </div>
-                </blockquote>
-              </li>
-            </ul>
           </article>
         </section>
       </main>

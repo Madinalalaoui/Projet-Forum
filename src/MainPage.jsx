@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import NavigationPanel from './NavigationPanel.jsx';
 import Signin from './Signin.jsx';
@@ -7,39 +6,37 @@ import ForumPage from './ForumPage.jsx';
 import Login from './Login.jsx';
 
 function MainPage() {
-  const [page, setPage] = useState("login_page"); //indique quelle page afficher
-  const [isConnected, setConnect] = useState(true); //permet de mettre à jour l'etat de connexion
+  const [user, setUser] = useState(null);
+  const [page, setPage] = useState("forum_page");
 
-  const getConnected = () => {
-    setConnect(true);
-    setPage("forum_page"); //si user connecté -> afficher page forum
+  const getConnected = (userData) => {
+    setUser(userData);
+    setPage("forum_page");
   };
 
   const setLogout = () => {
-    setConnect(false);
-    setPage("login_page"); //si dans le cas non connecté -> on est sur la page de connexion
+    setUser(null);
+    setPage("login_page");
   };
 
   return (
     <div>
-      <NavigationPanel  //adapte les boutons en fonction de l'etat de connexion
+      <NavigationPanel
         login={getConnected}
         logout={setLogout}
-        isConnected={isConnected}
+        isConnected={!!user}
         setPage={setPage} 
       />
 
-      {/**affichage des pages dépendant de l'etat de la page */}
       {page === "login_page" && <Login login={getConnected} />}
       {page === "signin_page" && <Signin />}
-      {page === "forum_page" && <ForumPage setPage={setPage} />}
-      {page === "profil_page" && <ProfilPage setPage={setPage} />}
+      {page === "forum_page" && <ForumPage user={user} setUser={setUser} setPage={setPage} />}
+      {page === "profil_page" && <ProfilPage setPage={setPage} user={user}   />}
     </div>
   );
 }
 
 export default MainPage;
-
 
 
 

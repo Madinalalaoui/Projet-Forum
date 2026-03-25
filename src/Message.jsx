@@ -1,5 +1,8 @@
 
-function Message({auteur,date,contenu,reponses}) { /**affiche un message avec son auteur, sa date, son contenu, et affiche récursivement ses réponses éventuelles*/
+function Message({auteur,date,contenu,reponses,id, onDelete, user}) { 
+  
+  const canDelete = user && auteur === user.username;
+
   return (
     <li>
       <p>
@@ -7,14 +10,25 @@ function Message({auteur,date,contenu,reponses}) { /**affiche un message avec so
       </p>
       <blockquote> 
         {contenu}
+
+        {canDelete && (
+          <button onClick={() => onDelete(id)}>
+            Supprimer
+          </button>
+        )}
+
         {reponses && reponses.length > 0 && (
           <ul>
             {reponses.map((rep,index) => (
               <Message
+                key={index}
                 auteur={rep.auteur}
                 date={rep.date}
                 contenu={rep.contenu}
                 reponses={rep.reponses}
+                id={rep.id}
+                onDelete={onDelete}
+                user={user}
               />
             ))}
           </ul>

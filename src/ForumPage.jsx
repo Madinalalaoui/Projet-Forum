@@ -3,7 +3,7 @@ import { useState } from 'react';
 import MessageList from './ListeMessages.jsx';
 import FormulaireSaisieMessage from './FormulaireSaisieMessage.jsx';
 
-function ForumPage({setPage}) {
+function ForumPage({user, setPage}) {
   const [messages, setMessages] = useState([   //etat contenant tous les messages du forum
     {
       auteur: 'Utilisateur 1',
@@ -22,8 +22,16 @@ function ForumPage({setPage}) {
   ]);
 
   const handleAddMessage = (msg) => { //fonction passée au formulaire pour ajouter un nouv msg
-    setMessages([msg, ...messages]); //ajoute le nouv msg en début de liste
+    setMessages(prev => [msg, ...prev]); //ajoute le nouv msg en début de liste
   };
+
+  const handleDeleteMessage = (id) => { //supprimer un message
+  setMessages(prev => prev.filter(msg => msg.id !== id));
+};
+
+const handleReply = (msg) => {
+  console.log("Répondre à :", msg);
+};
 
   return (
     <div>
@@ -60,11 +68,11 @@ function ForumPage({setPage}) {
   
       <main>
         <section id="zonenouvmsg">
-          <FormulaireSaisieMessage addMsg={handleAddMessage} /> {/**fournit au formulaire la fonction pour ajouter un message au parent(forumpage)*/}
+          <FormulaireSaisieMessage addMsg={handleAddMessage} user={user}/> {/**fournit au formulaire la fonction pour ajouter un message au parent(forumpage)*/}
         </section>
 
         <section id="listsmsgs"> 
-          <MessageList messages={messages} />   {/**liste des messages existants */}
+          <MessageList messages={messages} onDelete={handleDeleteMessage} user={user} onReply={handleReply}/>   {/**liste des messages existants */}
         </section>
       </main>
     </div>
