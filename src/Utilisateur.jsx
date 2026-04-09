@@ -1,19 +1,13 @@
 
 /**afficher les infos de l'utilisateur */
-function Utilisateur({user}) {
+function Utilisateur({ user }) {
   return (
-    <aside id="userBanner">
-      <section id="infoUtil">
-        <p>Nom d'utilisateur : {user.username}</p>
-        <p>Prénom : {user.firstName}</p>
-        <p>Nom : {user.lastName}</p>
-      </section>
-
-      <section id="photoprofil">
-        <p>Photo de profil :</p>
-        <img src={user.photo} alt="photo de profil" width={100} />
-      </section>
-    </aside>
+    <div>
+      <img src={user.photo} alt="Profil" width={100} />
+      <h2>{user.firstName} {user.lastName}</h2>
+      <p>Nom d'utilisateur : {user.username}</p>
+      <p>Rôle : <strong>{user.role}</strong></p> 
+    </div>
   );
 }
 

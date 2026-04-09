@@ -1,0 +1,98 @@
+/* Signin.css */
+
+/* Conteneur principal */
+.signin-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 25px;
+  border-radius: 10px;
+  background-color: #80c9b8; /* fond blanc pour contraste */
+  color: black;           /* texte noir par défaut */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Titre de la page */
+.signin-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: black;
+}
+
+/* Groupe de champs */
+.signin-form .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+/* Labels */
+.signin-form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: black;
+}
+
+/* Inputs */
+.signin-form input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: black;
+}
+
+/* Wrapper pour les mots de passe */
+.password-wrapper {
+  display: flex;
+}
+
+.password-wrapper input {
+  flex: 1;
+}
+
+.password-wrapper button {
+  margin-left: 5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #6d4b54;
+  color: white;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+
+
+/* Boutons de formulaire */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.form-actions button {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  transition: 0.3s;
+}
+
+
+/* Bouton Annuler */
+.form-actions button[type="button"] {
+  background-color: #6d4b54;
+  color: white;
+}
+
+
+/* Message d'erreur */
+.error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}

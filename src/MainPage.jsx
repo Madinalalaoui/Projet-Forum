@@ -9,6 +9,13 @@ function MainPage() {
   const [user, setUser] = useState(null);
   const [page, setPage] = useState("forum_page");
 
+  const forums = [
+  { id:1, title:"Forum Public", private:false },
+  { id:2, title:"Forum Privé", private:true }
+];
+
+const [currentForum, setCurrentForum] = useState(forums[0]);
+
   const getConnected = (userData) => {
     setUser(userData);
     setPage("forum_page");
@@ -30,7 +37,9 @@ function MainPage() {
 
       {page === "login_page" && <Login login={getConnected} />}
       {page === "signin_page" && <Signin />}
-      {page === "forum_page" && <ForumPage user={user} setUser={setUser} setPage={setPage} />}
+      {page === "forum_page" && <ForumPage user={user} setUser={setUser} setPage={setPage} forum={currentForum} 
+      forums={forums} setCurrentForum={setCurrentForum}/>}
+      
       {page === "profil_page" && <ProfilPage setPage={setPage} user={user}   />}
     </div>
   );

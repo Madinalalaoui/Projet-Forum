@@ -1,10 +1,11 @@
 
-function NavigationPanel({ isConnected,setPage,logout }) {
+function NavigationPanel({ user, isConnected,setPage,logout }) {
   return (
     <nav>
       {isConnected ? (   
         <> {/**si l'utilisateur est connecté -> forum et profil changent la page via setPage,et deconnexion appelle logout*/}
           <button onClick={() => setPage("forum_page")}>Forum</button>
+
           <button onClick={() => setPage("profil_page")}>Profil</button>
           <button onClick={logout}>Déconnexion</button>
         </>

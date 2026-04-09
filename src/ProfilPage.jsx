@@ -2,11 +2,11 @@ import profilImg from './profil.png';
 import Utilisateur from './Utilisateur.jsx';
 
 function ProfilPage({ setPage, user }) {
-  
-  const currentUser = { /**objet qui représente l'utilisateur courrant */
+  const currentUser = {
     username: user.username,
     firstName: user.firstName,
     lastName: user.lastName,
+    role: user.role,     
     photo: profilImg
   };
 
@@ -18,13 +18,13 @@ function ProfilPage({ setPage, user }) {
             <p>Nom Forum</p>
           </div>
           <div id="acc">
-             <button onClick={() => setPage("forum_page")}>Accueil</button> {/**acceuil -> redirection vers le forum*/}
+            <button onClick={() => setPage("forum_page")}>Accueil</button>
           </div>
         </div>
       </header>
 
       <main>
-        <Utilisateur user={currentUser} /> {/**afficher les infos de l'utilisateur */}
+        <Utilisateur user={currentUser} /> {/* le rôle sera disponible ici */}
 
         <section id="listsmsgs">
           <article>

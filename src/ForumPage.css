@@ -1,0 +1,206 @@
+/* Reset rapide */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page-entiere {
+
+display: flex;
+  flex-direction: column;
+  align-items: center;      /* centre horizontalement */
+  width: 100%;
+}
+main {
+  width: 90%;             
+  max-width: 1200px;       /* pas trop large sur grand écran */
+  padding: 20px;
+  background-color: #1b1b1b;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+}
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(165, 144, 208); 
+  align-items: center; /* centre tout le contenu horizontalement */
+}
+/* Body et page */
+ html {
+  background-color: rgb(165, 144, 208); 
+  color: #ffffff;           
+}
+
+/* Header */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1f1f1f;
+  color: white;
+  padding: 20px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
+  width: 100%;
+  border-bottom: 2px solid #322380; /* ligne de séparation */
+  border-radius: 10px;
+}
+
+header h1 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #4a90e2; 
+}
+
+#logo img {
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+/* Encadré de la zone de recherche */
+#zonerecherche {
+  background-color: #000000;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px; /* espace entre les éléments */
+  margin-bottom: 20px;
+}
+
+/* Label à l’intérieur */
+#zonerecherche label, 
+#zonerecherche p {
+  color: #ffffff; 
+  margin-bottom: 5px;
+}
+
+/* Inputs dans la zone de recherche */
+
+#zonerecherche input[type="date"] {
+  background-color: #000000; 
+  color: #ffffff;           
+  border: 1px solid #555;   
+  border-radius: 5px;
+  padding: 5px 10px;
+  width: 100%;               /* prend toute la largeur du bloc parent */
+  box-sizing: border-box;
+}
+
+
+#requete {
+  background-color: #000000; 
+  color: #ffffff;           
+  border: 1px solid #555;   
+  border-radius: 5px;
+  padding: 5px 10px;
+  width: 100%;             
+  box-sizing: border-box;
+}
+
+/* Bouton de recherche reste bleu */
+#search_button {
+  background-color: #4a90e2;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+#search_button:hover {
+  background-color: #357ABD;
+}
+/* Liens / boutons header */
+#liens {
+  margin-top: 10px;
+}
+
+#liens button {
+  margin: 5px;
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #4a90e2;  
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#liens button:hover {
+  background-color: #357ABD;
+}
+
+/* Layout principal */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Main (forum + messages) */
+main {
+  flex: 1;
+  padding: 50px;
+  background-color: #1b1b1b;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+}
+
+/* Titres des forums et messages */
+h2 {
+  color: #4a90e2; 
+  margin-bottom: 15px;
+}
+
+/* Liste de messages */
+#listsmsgs {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Formulaire de message */
+#zonenouvmsg {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+
+#zonenouvmsg input,
+#zonenouvmsg textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+/* Bouton envoyer */
+#zonenouvmsg button {
+  background-color: #4a90e2;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#zonenouvmsg button:hover {
+  background-color: #357ABD;
+}

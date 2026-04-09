@@ -5,7 +5,7 @@ function Message({auteur,date,contenu,reponses,id, onDelete, user, onReply}) {
   
   const [showReply, setShowReply] = useState(false);
   const [texte, setTexte] = useState("");
-  const canDelete = user && auteur === user.username;
+  const canDelete = user && (auteur === user.username || user.role === "admin");
 
 
    const handleReply = (e) => { 

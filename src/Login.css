@@ -1,0 +1,53 @@
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 25px;
+  border-radius: 10px;
+  background-color: rgb(241, 178, 153);
+}
+
+.login-form .form-group {
+  margin-bottom: 15px;
+  color : black;
+  display: flex;
+  flex-direction: column;
+}
+
+.password-wrapper {
+  display: flex;
+}
+
+.password-wrapper input {
+  flex: 1;
+}
+
+.password-wrapper button {
+  margin-left: 5px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+
+h1 {
+    color : black;
+}
+
+
+/* Login.css */
+input {
+  color: black;         /* texte en noir */
+  background-color: #fff; /* fond blanc */
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}

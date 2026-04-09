@@ -2,8 +2,18 @@ import logo from './logo.png'
 import { useState } from 'react';
 import MessageList from './ListeMessages.jsx';
 import FormulaireSaisieMessage from './FormulaireSaisieMessage.jsx';
+import AdminPanel from "./AdminPanel";
+import ForumType from './ForumType.jsx'; 
+import './ForumPage.css';
 
-function ForumPage({user, setPage}) {
+function ForumPage({user, forums, setPage}) {
+
+  const [currentForum, setCurrentForum] = useState(forums[0]);
+
+  if (currentForum.private && !user) {
+    return <p>Forum privé — connexion requise</p>;
+  }
+
   const [messages, setMessages] = useState([   //etat contenant tous les messages du forum
     {
       id: 1,
@@ -59,9 +69,10 @@ const handleReply = (idMessage, reponse) => {
 };
 
   return (
-    <div>
+    <div className="page-entiere">
+       
       <header>
-        <h1>Forum</h1>
+       <h1>{currentForum.title} {currentForum.private && "🔒"}</h1>
         <section id="logo">
           <img src={logo} alt="Logo du site" height={150}/>
         </section>
@@ -83,21 +94,29 @@ const handleReply = (idMessage, reponse) => {
         </section>
       </header>
 
-
-      <aside>
-        <section id="zoneinfos">
-          <p>Zone informations</p>
-        </section>
-      </aside>
-
   
       <main>
+        {/* Sélecteur de forums */}
+        <ForumType
+          forums={forums}
+          user={user}
+          setCurrentForum={setCurrentForum}
+        />
+
+        {/* Panneau admin */}
+        {user?.role === "admin" && <AdminPanel user={user} />}
+
         <section id="zonenouvmsg">
-          <FormulaireSaisieMessage addMsg={handleAddMessage} user={user}/> {/**fournit au formulaire la fonction pour ajouter un message au parent(forumpage)*/}
+          <FormulaireSaisieMessage addMsg={handleAddMessage} user={user}/>
         </section>
 
-        <section id="listsmsgs"> 
-          <MessageList messages={messages} onDelete={handleDeleteMessage} user={user} onReply={handleReply}/>   {/**liste des messages existants */}
+        <section id="listsmsgs">
+          <MessageList
+            messages={messages}
+            onDelete={handleDeleteMessage}
+            user={user}
+            onReply={handleReply}
+          />
         </section>
       </main>
     </div>
