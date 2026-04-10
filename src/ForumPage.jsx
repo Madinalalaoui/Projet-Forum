@@ -12,13 +12,21 @@ function ForumPage({user, forums, setPage, messages, setMessages}) {
   const [query, setQuery] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const isAdmin = user?.role === "admin";
+  const canAccessPrivate = !currentForum.private || isAdmin;
   
-  if (currentForum.private && !user) {
-    return <p>Forum privé</p>;
+  if (!canAccessPrivate) {
+    return <p>Ce forum est privé (accès admin uniquement).</p>;
   }
 
   const handleAddMessage = (msg) => { //fonction passée au formulaire pour ajouter un nouv msg
-    setMessages(prev => [msg, ...prev]); //ajoute le nouv msg en début de liste
+    setMessages(prev => [
+      {
+        ...msg,
+        forumId: currentForum.id
+      },
+      ...prev
+    ]); //ajoute le nouv msg en début de liste
   };
 
 const deleteRecursive = (messages, id) => {
@@ -103,7 +111,11 @@ const filterMessagesRecursive = (list) => {
   }, []);
 };
 
-const filteredMessages = filterMessagesRecursive(messages);
+const messagesForCurrentForum = messages.filter(
+  (msg) => (msg.forumId ?? 1) === currentForum.id
+);
+
+const filteredMessages = filterMessagesRecursive(messagesForCurrentForum);
 
 const handleSearchSubmit = (e) => {
   e.preventDefault();
