@@ -1,16 +1,57 @@
-# React + Vite
+# Forum
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application web de forum avec gestion des utilisateurs, des rôles et des messages.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Lancer le projet
 
-## React Compiler
+Backend
+```bash
+node server/server.js
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Frontend
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+Le frontend tourne sur `http://localhost:5173`, le backend sur `http://localhost:3001`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Pour initialiser la base avec les utilisateurs par défaut :
+```bash
+node server/init.js
+```
+
+---
+
+## Arborescence
+
+```
+├── server/
+│   ├── database.js       # Connexion MongoDB
+│   ├── init.js           # Initialisation des utilisateurs en base
+│   └── server.js         # API Express (routes messages, users)
+│
+└── src/
+    ├── pages/            # Pages principales (Forum, Login, Signup, Profil, Admin)
+    ├── components/
+    │   ├── forum/        # Composants liés aux messages et forums
+    │   ├── layout/       # NavigationPanel
+    │   └── user/         # Composants liés aux utilisateurs
+    └── assets/
+        ├── styles/       # Fichiers CSS
+        └── images/       # Images statiques
+```
+
+---
+
+## Stack technique
+
+| Côté | Techno |
+|------|--------|
+| Frontend | React 19, Vite |
+| Backend | Node.js, Express 5 |
+| Base de données | MongoDB |
+| Icônes | Lucide React |

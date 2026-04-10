@@ -144,7 +144,7 @@ app.put("/users/:username/role", async (req, res) => {
 app.get("/messages", async (_req, res) => {
   try {
     const db = await connectDB();
-    const doc = await db.collection("forum_data").findOne({ key: "messages" });
+    const doc = await db.collection("posts").findOne({ key: "messages" });
     res.json({ messages: doc?.value || [] });
   } catch (error) {
     res.status(500).json({ message: "Erreur serveur" });
@@ -160,7 +160,7 @@ app.put("/messages", async (req, res) => {
 
   try {
     const db = await connectDB();
-    await db.collection("forum_data").updateOne(
+    await db.collection("posts").updateOne(
       { key: "messages" },
       {
         $set: {
@@ -178,4 +178,23 @@ app.put("/messages", async (req, res) => {
   }
 });
 
-app.listen(3001, () => console.log("Serveur login démarré sur http://localhost:3001"));
+async function seedAdmins() {
+  const admins = [
+    { username: "madina", password: "web", role: "admin", firstName: "Madina", lastName: "LALALOUI" },
+    { username: "rasheequa", password: "web", role: "admin", firstName: "Rasheequa", lastName: "BAGADAD SAIB" },
+  ];
+
+  for (const user of admins) {
+    try {
+      await initDB({ ...user, status: "validated" });
+      console.log(`Utilisateur "${user.username}" créé.`);
+    } catch {
+      // existe déjà, on ignore
+    }
+  }
+}
+
+app.listen(3001, async () => {
+  console.log("Serveur démarré sur http://localhost:3001");
+  await seedAdmins();
+});

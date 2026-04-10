@@ -1,6 +1,6 @@
 import { connectDB } from "./database.js";
 
-async function initDB({ username, password, role, firstName, lastName }) {
+async function initDB({ username, password, role, firstName, lastName, status = "pending" }) {
   const database = await connectDB();
   const collection = database.collection('users');
 
@@ -13,7 +13,7 @@ async function initDB({ username, password, role, firstName, lastName }) {
     username,
     password, // En production, n'oublie pas de hasher le mot de passe !
     role,
-    status: "pending",
+    status,
     firstName,
     lastName,
     dateCreation: new Date(),
