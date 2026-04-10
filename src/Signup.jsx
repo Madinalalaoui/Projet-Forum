@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import './Signin.css';
+import './assets/Signup.css';
 
-function Signin({ setPage }) {
+function Signup({ setPage }) {
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -11,13 +11,41 @@ function Signin({ setPage }) {
   const [showPassword2, setShowPassword2] = useState(false);
   const [passOK, setPassOK] = useState(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (pass1 !== pass2) {
       setPassOK(false);
       return;
     }
-    setPassOK(true);
-    alert('Utilisateur enregistré !');
+
+    if (!username.trim() || !pass1.trim()) {
+      alert('Nom utilisateur et mot de passe requis');
+      return;
+    }
+
+    try {
+      const res = await fetch('http://localhost:3001/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username,
+          password: pass1,
+          firstName,
+          lastName,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || 'Erreur lors de l\'inscription');
+      }
+
+      setPassOK(true);
+      alert('Utilisateur enregistré !');
+      setPage?.('login_page');
+    } catch (error) {
+      setPassOK(false);
+      alert(error.message);
+    }
   };
 
   return (
@@ -83,4 +111,4 @@ function Signin({ setPage }) {
   );
 }
 
-export default Signin;
+export default Signup;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Login.css'; // on va créer ce fichier
+import './assets/Login.css'; // on va créer ce fichier
 
 function Login(props) {
   const [username, setUsername] = useState("");
@@ -55,7 +55,6 @@ function Login(props) {
 
         <div className="form-actions">
           <button type="submit">Connexion</button>
-          <button type="button">Annuler</button>
         </div>
       </form>
     </div>

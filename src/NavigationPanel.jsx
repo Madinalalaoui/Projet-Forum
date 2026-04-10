@@ -7,12 +7,13 @@ function NavigationPanel({ user, isConnected,setPage,logout }) {
           <button onClick={() => setPage("forum_page")}>Forum</button>
 
           <button onClick={() => setPage("profil_page")}>Profil</button>
+          
           <button onClick={logout}>Déconnexion</button>
         </>
       ) : (
         <> {/**sinon -> boutons 'Se connecter' et 'Créer un compte' qui changent la page via setPage*/}
           <button onClick={() => setPage("login_page")}>Se connecter</button>
-          <button onClick={() => setPage("signin_page")}>Créer un compte</button>
+          <button onClick={() => setPage("signup_page")}>Créer un compte</button>
         </>
       )}
     </nav>

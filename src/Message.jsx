@@ -16,6 +16,7 @@ function Message({auteur,date,contenu,reponses,id, onDelete, user, onReply}) {
       id: Date.now(),
       auteur: user.username,
       date: new Date().toLocaleString(),
+      createdAt: new Date().toISOString(),
       contenu: texte,
       reponses: []
     });

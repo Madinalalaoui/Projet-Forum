@@ -2,10 +2,9 @@
 import { useState } from 'react';
 
 function FormulaireSaisieMessage({addMsg, user}) {
+  const [contenu, setContenu] = useState(''); //etat pour stocker le texte saisi 
 
   if (!user) return null;
-
-  const [contenu, setContenu] = useState(''); //etat pour stocker le texte saisi 
 
   const handleSubmit = (e) => { //fonction appellée à l'envoi du formulaire 
     e.preventDefault();
@@ -14,6 +13,7 @@ function FormulaireSaisieMessage({addMsg, user}) {
       id: Date.now(), //afin de connaitre le message précis qu'on voudra supprimer 
       auteur: user.username,           
       date: new Date().toLocaleString(), //date et heure actuelles
+      createdAt: new Date().toISOString(),
       contenu,
     });
     setContenu('');
