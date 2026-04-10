@@ -13,6 +13,7 @@ async function initDB({ username, password, role, firstName, lastName }) {
     username,
     password, // En production, n'oublie pas de hasher le mot de passe !
     role,
+    status: "pending",
     firstName,
     lastName,
     dateCreation: new Date(),
