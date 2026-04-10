@@ -1,0 +1,165 @@
+/* =============================================
+   Page Profil
+   ============================================= */
+.profil-page {
+  padding: 24px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.profil-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* =============================================
+   Sidebar profil — carte utilisateur
+   ============================================= */
+.profil-sidebar {
+  position: sticky;
+  top: 12px;
+}
+
+.user-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+}
+
+.user-fullname {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.user-username {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: -8px;
+}
+
+.user-role {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 2px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  text-transform: capitalize;
+}
+
+/* Badge admin */
+.role-admin {
+  background-color: #111827;
+  color: #ffffff;
+  border-color: #111827;
+}
+
+/* =============================================
+   Colonne principale — liste des messages
+   ============================================= */
+.profil-main {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.profil-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profil-count {
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 1px 8px;
+  border-radius: 99px;
+}
+
+.profil-messages-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.profil-message-item {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.profil-message-item:last-child {
+  border-bottom: none;
+}
+
+.profil-msg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.profil-msg-date {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.profil-msg-content {
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* =============================================
+   Responsive
+   ============================================= */
+@media (max-width: 640px) {
+  .profil-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .profil-sidebar {
+    position: static;
+  }
+
+  .user-card {
+    flex-direction: row;
+    text-align: left;
+    gap: 16px;
+  }
+
+  .user-avatar {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+}

@@ -1,0 +1,211 @@
+/* =============================================
+   Variables — palette zinc sobre
+   ============================================= */
+:root {
+  --bg:           #f4f4f5;   /* zinc-100 — fond page (pas blanc pur) */
+  --surface:      #ffffff;   /* cartes et panneaux */
+  --border:       #e4e4e7;   /* zinc-200 */
+  --primary:      #18181b;   /* zinc-900 — noir profond */
+  --primary-hover:#27272a;
+  --danger:       #ef4444;
+  --danger-hover: #dc2626;
+  --text:         #18181b;
+  --text-muted:   #71717a;   /* zinc-500 */
+  --radius:       8px;
+  --shadow:       0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:    0 4px 8px rgba(0,0,0,0.06);
+}
+
+/* =============================================
+   Reset
+   ============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =============================================
+   Navigation
+   ============================================= */
+nav {
+  background-color: var(--primary);
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.nav-brand {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  padding: 6px 10px 6px 0;
+  margin-right: 12px;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+}
+
+.nav-brand:hover {
+  background: transparent;
+  border: none;
+  opacity: 0.8;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+}
+
+.nav-links button {
+  background: transparent;
+  color: #a1a1aa;
+  border: none;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-links button:hover {
+  background-color: rgba(255,255,255,0.08);
+  color: #ffffff;
+  border: none;
+}
+
+/* Page active — indicateur visuel clair */
+.nav-links button.active {
+  color: #ffffff;
+  background-color: rgba(255,255,255,0.12);
+  font-weight: 500;
+}
+
+.nav-logout {
+  margin-left: auto;
+  background: transparent;
+  color: #a1a1aa;
+  border: 1px solid #3f3f46;
+  padding: 4px 12px;
+  font-size: 0.82rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background-color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-logout:hover {
+  color: #ffffff;
+  border-color: #71717a;
+  background: rgba(255,255,255,0.06);
+}
+
+/* =============================================
+   Inputs & Textarea
+   ============================================= */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: 0.9rem;
+  background-color: #ffffff;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #a1a1aa;
+  box-shadow: 0 0 0 3px rgba(24,24,27,0.06);
+}
+
+/* =============================================
+   Boutons — base
+   ============================================= */
+button {
+  font-family: inherit;
+  font-size: 0.875rem;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  background-color: #ffffff;
+  color: var(--text);
+  transition: background-color 0.15s, border-color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+button:hover {
+  background-color: #f4f4f5;
+  border-color: #a1a1aa;
+}
+
+/* Bouton principal — fond noir */
+.btn-primary {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+/* Bouton secondaire */
+.btn-secondary {
+  background-color: #ffffff;
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+.btn-secondary:hover {
+  color: var(--text);
+  border-color: #a1a1aa;
+  background-color: #fafafa;
+}
+
+/* Bouton danger — rouge discret */
+.btn-danger {
+  background-color: transparent;
+  color: var(--danger);
+  border-color: #fca5a5;
+  font-size: 0.78rem;
+  padding: 2px 8px;
+}
+
+.btn-danger:hover {
+  background-color: var(--danger);
+  border-color: var(--danger);
+  color: #ffffff;
+}

@@ -1,0 +1,95 @@
+/* =============================================
+   Page Inscription
+   ============================================= */
+.signin-container {
+  max-width: 440px;
+  margin: 60px auto;
+  padding: 36px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.signin-container h1 {
+  text-align: center;
+  margin-bottom: 28px;
+  color: var(--text);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.signin-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.signin-form label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.password-wrapper {
+  display: flex;
+  gap: 6px;
+}
+
+.password-wrapper input {
+  flex: 1;
+  width: auto;
+}
+
+.password-wrapper button {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.form-actions .btn-primary {
+  flex: 1;
+  padding: 10px;
+  font-size: 0.95rem;
+}
+
+.form-actions .btn-secondary {
+  padding: 10px 16px;
+}
+
+.error-message {
+  color: var(--danger);
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.form-switch {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.success-message {
+  color: #16a34a;
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .signin-container {
+    margin: 20px;
+    padding: 24px;
+  }
+}

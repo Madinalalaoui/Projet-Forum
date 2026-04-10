@@ -1,0 +1,513 @@
+/* =============================================
+   Layout principal — grille 2 colonnes
+   ============================================= */
+.forum-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 16px;
+  padding: 16px;
+  /* La colonne de messages s'étire jusqu'en bas de l'écran */
+  height: calc(100vh - 56px);
+  align-items: start;
+}
+
+/* =============================================
+   Sidebar
+   ============================================= */
+.left-sidebar {
+  position: sticky;
+  top: 72px;
+  max-height: calc(100vh - 88px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.left-sidebar::-webkit-scrollbar { width: 3px; }
+.left-sidebar::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 4px;
+}
+
+/* Sections de la sidebar */
+.sidebar-section {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+
+/* Label de section */
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Boutons de sélection de forum */
+.forum-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 2px;
+  background-color: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  padding: 7px 10px;
+  border-radius: var(--radius);
+}
+
+.forum-btn:hover {
+  background-color: var(--bg);
+  border: none;
+  color: var(--text);
+}
+
+.forum-btn.active {
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  font-weight: 500;
+}
+
+.forum-btn.active:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Bouton reset filtres */
+.btn-reset {
+  width: 100%;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px dashed var(--border);
+  padding: 5px;
+  margin-top: 8px;
+  justify-content: center;
+}
+
+.btn-reset:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+  background: transparent;
+}
+
+/* Zone de recherche */
+.search-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.search-fields > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.search-fields label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* =============================================
+   Liens et hints
+   ============================================= */
+.login-hint {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 4px 0;
+  line-height: 1.5;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: inherit;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.link-btn:hover {
+  background: none;
+  border: none;
+  color: var(--primary-hover);
+}
+
+/* États vides */
+.empty-state {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  text-align: center;
+  padding: 48px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.access-denied {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 64px 20px;
+  color: var(--text-muted);
+}
+
+.access-denied p {
+  font-size: 0.95rem;
+}
+
+/* =============================================
+   Colonne principale — disposition verticale
+   ============================================= */
+.messages-column {
+  min-width: 0;
+  height: calc(100vh - 88px); /* nav + padding */
+}
+
+/* Le panneau de messages prend toute la hauteur disponible
+   et se découpe en 3 zones : header / scroll / input */
+.zone-messages {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* En-tête : titre du forum + compteur */
+.zone-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.zone-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.message-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 99px;
+}
+
+/* Zone de défilement — prend tout l'espace disponible */
+.messages-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 20px;
+}
+
+.messages-scroll::-webkit-scrollbar { width: 4px; }
+.messages-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 4px;
+}
+
+/* Zone de saisie — épinglée en bas */
+.message-input-area {
+  flex-shrink: 0;
+  padding: 12px 20px 16px;
+  border-top: 1px solid var(--border);
+  background-color: var(--surface);
+}
+
+/* Formulaire en ligne : textarea + bouton côte à côte */
+.message-input-area form {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.message-input-area textarea {
+  flex: 1;
+  min-height: 44px;
+  max-height: 120px;
+  resize: none;
+  margin: 0;
+}
+
+.message-input-area .btn-primary {
+  flex-shrink: 0;
+  align-self: flex-end;
+  width: auto;
+  padding: 10px 18px;
+  margin: 0;
+}
+
+/* =============================================
+   Messages — liste
+   ============================================= */
+.messages-scroll > ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-scroll > ul > li {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.messages-scroll > ul > li:last-child {
+  border-bottom: none;
+}
+
+/* Layout avatar + contenu */
+.msg-layout {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+/* Cercle initiale */
+.msg-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.msg-body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Ligne auteur/date */
+.msg-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+
+.msg-author {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.88rem;
+}
+
+.msg-author:hover {
+  text-decoration: underline;
+}
+
+.msg-separator {
+  color: var(--border);
+  font-size: 0.7rem;
+}
+
+.msg-date {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* Contenu du message */
+.messages-scroll li blockquote {
+  border: none;
+  padding: 0;
+}
+
+.message-content {
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+/* Boutons d'action */
+.msg-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.btn-reply {
+  font-size: 0.78rem;
+  padding: 2px 8px;
+  color: var(--text-muted);
+  border-color: var(--border);
+  background: transparent;
+}
+
+.btn-reply:hover {
+  color: var(--text);
+  border-color: #a1a1aa;
+  background: transparent;
+}
+
+/* Formulaire de réponse inline */
+.reply-form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reply-form textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+.reply-form .btn-primary {
+  align-self: flex-end;
+  width: auto;
+  font-size: 0.85rem;
+}
+
+/* =============================================
+   Réponses imbriquées
+   ============================================= */
+blockquote > ul {
+  list-style: none;
+  margin-top: 14px;
+  padding-left: 14px;
+  border-left: 2px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+blockquote > ul > li {
+  padding: 10px 0 !important;
+  border-bottom: 1px solid var(--border) !important;
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+blockquote > ul > li:last-child {
+  border-bottom: none !important;
+}
+
+/* Avatar plus petit pour les réponses */
+blockquote > ul .msg-avatar {
+  width: 26px;
+  height: 26px;
+  font-size: 0.7rem;
+}
+
+/* =============================================
+   Panel Admin
+   ============================================= */
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--danger);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 600;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-left: 4px;
+}
+
+.pending-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.pending-item {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pending-item:last-child { border-bottom: none; }
+
+.pending-name {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.pending-username {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.pending-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-validate {
+  font-size: 0.78rem;
+  padding: 2px 8px;
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.btn-validate:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+/* =============================================
+   Responsive
+   ============================================= */
+@media (max-width: 768px) {
+  .forum-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .left-sidebar {
+    position: static;
+    max-height: none;
+  }
+
+  .messages-column {
+    height: 80vh;
+  }
+}
