@@ -11,7 +11,7 @@ async function initDB({ username, password, role, firstName, lastName, status = 
 
   const result = await collection.insertOne({
     username,
-    password, // En production, n'oublie pas de hasher le mot de passe !
+    password, //en production, ne pas oublier de hasher le mot de passe 
     role,
     status,
     firstName,
