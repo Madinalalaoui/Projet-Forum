@@ -5,7 +5,7 @@
   max-width: 380px;
   margin: 80px auto;
   padding: 36px;
-  background-color: var(--surface);
+  background-color: #fff3c4;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -79,4 +79,8 @@
     margin: 20px;
     padding: 24px;
   }
+}
+
+body {
+  background-color: #a9a3ff;
 }

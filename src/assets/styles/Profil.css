@@ -12,6 +12,7 @@
   grid-template-columns: 240px 1fr;
   gap: 20px;
   align-items: start;
+  
 }
 
 /* =============================================
@@ -33,6 +34,7 @@
   align-items: center;
   text-align: center;
   gap: 12px;
+  background-color: #fff3c4;
 }
 
 .user-avatar {
@@ -81,7 +83,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 20px;
-  box-shadow: var(--shadow);
+  background-color: #fff3c4;
 }
 
 .profil-title {
@@ -90,7 +92,7 @@
   color: var(--text);
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #4c1d95;
   display: flex;
   align-items: center;
   gap: 8px;
