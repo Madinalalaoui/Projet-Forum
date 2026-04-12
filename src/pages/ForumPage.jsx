@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, Globe, Lock } from 'lucide-react';
 import MessageList from '../components/forum/MessageList.jsx';
 import MessageForm from '../components/forum/MessageForm.jsx';
@@ -6,11 +7,12 @@ import ForumType from '../components/forum/ForumType.jsx';
 import { deleteRecursive, addReplyRecursive } from '../utils/messages.js';
 import '../assets/styles/ForumPage.css';
 
-function ForumPage({ user, forums, setPage, messages, setMessages, navigateToProfile }) {
+function ForumPage({ user, forums, messages, setMessages }) {
   const [currentForum, setCurrentForum] = useState(forums[0]);
   const [query, setQuery] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const navigate = useNavigate();
 
   const canAccessPrivate = !currentForum.private || user?.role === "admin";
 
@@ -64,7 +66,6 @@ function ForumPage({ user, forums, setPage, messages, setMessages, navigateToPro
             currentForum={currentForum}
           />
         </section>
-
 
         <section className="sidebar-section">
           <p className="section-label">
@@ -138,7 +139,7 @@ function ForumPage({ user, forums, setPage, messages, setMessages, navigateToPro
                   onDelete={handleDeleteMessage}
                   user={user}
                   onReply={handleReply}
-                  onViewProfile={navigateToProfile}
+                  onViewProfile={(username) => navigate(`/profil/${username}`)}
                 />
               </div>
 
@@ -147,7 +148,7 @@ function ForumPage({ user, forums, setPage, messages, setMessages, navigateToPro
                   <MessageForm addMsg={handleAddMessage} user={user} />
                 ) : (
                   <p className="login-hint">
-                    <button className="link-btn" onClick={() => setPage("login_page")}>
+                    <button className="link-btn" onClick={() => navigate("/login")}>
                       Connectez-vous
                     </button>{" "}
                     pour poster un message.

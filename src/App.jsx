@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import NavigationPanel from './components/layout/NavigationPanel.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
@@ -17,26 +18,20 @@ function App() {
     const saved = localStorage.getItem("user");
     return saved ? JSON.parse(saved) : null;
   });
-  const [page, setPage] = useState("forum_page");
   const [messages, setMessages] = useState([]);
   const initialLoad = useRef(true);
-  const [viewedUsername, setViewedUsername] = useState(null);
-
-  const navigateToProfile = (username) => {
-    setViewedUsername(username);
-    setPage("profil_page");
-  };
+  const navigate = useNavigate();
 
   const handleLogin = (userData) => {
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
-    setPage("forum_page");
+    navigate("/forum");
   };
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
-    setPage("login_page");
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -60,37 +55,28 @@ function App() {
 
   return (
     <div>
-      <NavigationPanel
-        user={user}
-        isConnected={!!user}
-        page={page}
-        setPage={(p) => { setViewedUsername(null); setPage(p); }}
-        logout={handleLogout}
-      />
-
-      {page === "login_page" && <LoginPage login={handleLogin} setPage={setPage} />}
-      {page === "signup_page" && <SignupPage setPage={setPage} />}
-      {page === "forum_page" && (
-        <ForumPage
-          user={user}
-          setPage={setPage}
-          forums={FORUMS}
-          messages={messages}
-          setMessages={setMessages}
-          navigateToProfile={navigateToProfile}
-        />
-      )}
-      {page === "profil_page" && (
-        <ProfilPage
-          user={user}
-          messages={messages}
-          setMessages={setMessages}
-          viewedUsername={viewedUsername ?? user?.username}
-        />
-      )}
-      {page === "admin_page" && user?.role === "admin" && (
-        <AdminDashboard user={user} />
-      )}
+      <NavigationPanel user={user} isConnected={!!user} logout={handleLogout} />
+      <Routes>
+        <Route path="/" element={<Navigate to="/forum" replace />} />
+        <Route path="/forum" element={
+          <ForumPage
+            user={user}
+            forums={FORUMS}
+            messages={messages}
+            setMessages={setMessages}
+          />
+        } />
+        <Route path="/login" element={<LoginPage login={handleLogin} />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/profil/:username" element={
+          <ProfilPage user={user} messages={messages} setMessages={setMessages} />
+        } />
+        <Route path="/admin" element={
+          user?.role === "admin"
+            ? <AdminDashboard user={user} />
+            : <Navigate to="/forum" replace />
+        } />
+      </Routes>
     </div>
   );
 }

@@ -1,13 +1,14 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../config.js';
 import '../assets/styles/Login.css';
 
-function LoginPage({ login, setPage }) {
+function LoginPage({ login }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,7 +66,7 @@ function LoginPage({ login, setPage }) {
 
         <p className="form-switch">
           Pas encore de compte ?{" "}
-          <button className="link-btn" onClick={() => setPage("signup_page")}>
+          <button className="link-btn" onClick={() => navigate("/signup")}>
             Créer un compte
           </button>
         </p>

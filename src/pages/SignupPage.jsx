@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../config.js';
 import '../assets/styles/Signup.css';
 
-function SignupPage({ setPage }) {
+function SignupPage() {
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -12,6 +13,7 @@ function SignupPage({ setPage }) {
   const [showPassword2, setShowPassword2] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     setError('');
@@ -37,7 +39,7 @@ function SignupPage({ setPage }) {
       if (!res.ok) throw new Error(data.message || "Erreur lors de l'inscription");
 
       setSuccess(true);
-      setTimeout(() => setPage('login_page'), 2500);
+      setTimeout(() => navigate('/login'), 2500);
     } catch (err) {
       setError(err.message);
     }
@@ -113,7 +115,7 @@ function SignupPage({ setPage }) {
 
         <p className="form-switch">
           Déjà inscrit ?{" "}
-          <button className="link-btn" onClick={() => setPage("login_page")}>
+          <button className="link-btn" onClick={() => navigate("/login")}>
             Se connecter
           </button>
         </p>

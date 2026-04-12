@@ -1,56 +1,41 @@
+import { NavLink } from 'react-router-dom';
 import { MessageSquare, User, LogIn, UserPlus, LogOut, Shield } from 'lucide-react';
 
-function NavigationPanel({ user, isConnected, page, setPage, logout }) {
+function NavigationPanel({ user, isConnected, logout }) {
   return (
     <nav>
-      <button className="nav-brand" onClick={() => setPage("forum_page")}>
+      <NavLink className="nav-brand" to="/forum">
         Organiz'asso
-      </button>
+      </NavLink>
 
       <div className="nav-links">
         {isConnected ? (
           <>
-            <button
-              className={page === "forum_page" ? "active" : ""}
-              onClick={() => setPage("forum_page")}
-            >
+            <NavLink to="/forum">
               <MessageSquare size={15} />
               Forum
-            </button>
-            {/* Le bouton Profil affiche directement le pseudo — pas de doublon */}
-            <button
-              className={page === "profil_page" ? "active" : ""}
-              onClick={() => setPage("profil_page")}
-            >
+            </NavLink>
+            <NavLink to={`/profil/${user?.username}`}>
               <User size={15} />
               {user?.username}
-            </button>
+            </NavLink>
             {user?.role === "admin" && (
-              <button
-                className={page === "admin_page" ? "active" : ""}
-                onClick={() => setPage("admin_page")}
-              >
+              <NavLink to="/admin">
                 <Shield size={15} />
                 Admin
-              </button>
+              </NavLink>
             )}
           </>
         ) : (
           <>
-            <button
-              className={page === "login_page" ? "active" : ""}
-              onClick={() => setPage("login_page")}
-            >
+            <NavLink to="/login">
               <LogIn size={15} />
               Se connecter
-            </button>
-            <button
-              className={page === "signup_page" ? "active" : ""}
-              onClick={() => setPage("signup_page")}
-            >
+            </NavLink>
+            <NavLink to="/signup">
               <UserPlus size={15} />
               Créer un compte
-            </button>
+            </NavLink>
           </>
         )}
       </div>

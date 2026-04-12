@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Trash2 } from 'lucide-react';
 import profilImg from '../assets/images/profil.png';
 import UserCard from '../components/user/UserCard.jsx';
@@ -18,14 +19,13 @@ function getUserMessages(allMessages, username) {
   return result;
 }
 
-function ProfilPage({ user, messages = [], setMessages, viewedUsername }) {
+function ProfilPage({ user, messages = [], setMessages }) {
+  const { username } = useParams();
   const [viewedUser, setViewedUser] = useState(null);
 
-  const isOwnProfile = viewedUsername === user?.username;
+  const isOwnProfile = username === user?.username;
 
   useEffect(() => {
-    if (!viewedUsername) return;
-
     if (isOwnProfile) {
       setViewedUser({
         username: user.username,
@@ -37,14 +37,14 @@ function ProfilPage({ user, messages = [], setMessages, viewedUsername }) {
       return;
     }
 
-    fetch(`${API_URL}/users/${viewedUsername}`)
+    fetch(`${API_URL}/users/${username}`)
       .then(res => {
         if (!res.ok) throw new Error("Utilisateur non trouvé");
         return res.json();
       })
       .then(data => setViewedUser({ ...data, photo: profilImg }))
       .catch(() => setViewedUser(null));
-  }, [viewedUsername]);
+  }, [username]);
 
   if (!user) {
     return (
