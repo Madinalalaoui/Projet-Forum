@@ -1,28 +1,62 @@
-# Forum
+# Organiz'asso — Forum
 
-Application web de forum avec gestion des utilisateurs, des rôles et des messages.
+Application web de forum pour une association. Gestion des membres, des rôles et des messages avec réponses imbriquées.
+
+---
+
+## Fonctionnalités
+
+- Inscription avec validation par un admin (le premier inscrit devient admin automatiquement)
+- Connexion / déconnexion
+- Forums public et privé (réservé aux admins)
+- Messages avec réponses imbriquées, recherche et filtres par date
+- Page profil par membre
+- Dashboard admin : valider/rejeter les inscriptions, promouvoir/rétrograder les membres
+
+---
+
+## Stack technique
+
+| Côté | Technologie |
+|------|-------------|
+| Frontend | React 19, React Router v7, Vite |
+| Backend | Node.js, Express 5 |
+| Base de données | MongoDB |
+| Sécurité | bcryptjs (hashage des mots de passe) |
+| Icônes | Lucide React |
+
+---
+
+## Prérequis
+
+- [Node.js](https://nodejs.org) v18+
+- [MongoDB](https://www.mongodb.com) en local (port 27017 par défaut)
 
 ---
 
 ## Lancer le projet
 
-Backend
+**1. Installer les dépendances**
+```bash
+npm install
+```
+
+**2. Lancer le backend**
 ```bash
 node server/server.js
 ```
 
-Frontend
+**3. Lancer le frontend** (dans un autre terminal)
 ```bash
-npm install
 npm run dev
 ```
 
-Le frontend tourne sur `http://localhost:5173`, le backend sur `http://localhost:3001`.
+| Service | URL |
+|---------|-----|
+| Frontend | http://localhost:5173 |
+| Backend | http://localhost:3001 |
 
-Pour initialiser la base avec les utilisateurs par défaut :
-```bash
-node server/init.js
-```
+> Le premier compte créé via l'interface devient automatiquement administrateur.
 
 ---
 
@@ -31,27 +65,24 @@ node server/init.js
 ```
 ├── server/
 │   ├── database.js       # Connexion MongoDB
-│   ├── init.js           # Initialisation des utilisateurs en base
-│   └── server.js         # API Express (routes messages, users)
+│   ├── init.js           # Création d'un utilisateur en base
+│   └── server.js         # API REST (users, messages)
 │
 └── src/
-    ├── pages/            # Pages principales (Forum, Login, Signup, Profil, Admin)
+    ├── config.js         # URL de l'API
+    ├── utils/messages.js # Utilitaires partagés (création, suppression, formatage)
+    ├── pages/            # LoginPage, SignupPage, ForumPage, ProfilPage, AdminDashboard
     ├── components/
-    │   ├── forum/        # Composants liés aux messages et forums
+    │   ├── forum/        # Message, MessageList, MessageForm, ForumType
     │   ├── layout/       # NavigationPanel
-    │   └── user/         # Composants liés aux utilisateurs
+    │   └── user/         # UserCard
     └── assets/
-        ├── styles/       # Fichiers CSS
-        └── images/       # Images statiques
+        ├── styles/       # CSS par composant
+        └── images/
 ```
 
 ---
 
-## Stack technique
+## Documentation
 
-| Côté | Techno |
-|------|--------|
-| Frontend | React 19, Vite |
-| Backend | Node.js, Express 5 |
-| Base de données | MongoDB |
-| Icônes | Lucide React |
+Pour une explication détaillée du fonctionnement interne du projet (React, routing, récursion, backend...) : [`explication_du_projet.md`](explication_du_projet.md)
