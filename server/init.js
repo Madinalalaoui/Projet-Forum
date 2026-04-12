@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import { connectDB } from "./database.js";
 
 async function initDB({ username, password, role, firstName, lastName, status = "pending" }) {
@@ -9,16 +10,18 @@ async function initDB({ username, password, role, firstName, lastName, status = 
     throw new Error('Username is already used');
   }
 
+  const hashedPassword = await bcrypt.hash(password, 10);
+
   const result = await collection.insertOne({
     username,
-    password, //en production, ne pas oublier de hasher le mot de passe 
+    password: hashedPassword,
     role,
     status,
     firstName,
     lastName,
     dateCreation: new Date(),
   });
-  
+
   return result;
 }
 
