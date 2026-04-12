@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import NavigationPanel from './components/layout/NavigationPanel.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SignupPage from './pages/SignupPage.jsx';
@@ -18,8 +18,8 @@ function App() {
     return saved ? JSON.parse(saved) : null;
   });
   const [page, setPage] = useState("forum_page");
-  const [messagesLoaded, setMessagesLoaded] = useState(false);
   const [messages, setMessages] = useState([]);
+  const initialLoad = useRef(true);
   const [viewedUsername, setViewedUsername] = useState(null);
 
   const navigateToProfile = (username) => {
@@ -40,40 +40,23 @@ function App() {
   };
 
   useEffect(() => {
-    const loadMessages = async () => {
-      try {
-        const response = await fetch(`${API_URL}/messages`);
-        if (response.ok) {
-          const data = await response.json();
-          setMessages(data.messages || []);
-        }
-      } catch (error) {
-        console.error("Impossible de charger les messages:", error);
-      } finally {
-        setMessagesLoaded(true);
-      }
-    };
-
-    loadMessages();
+    fetch(`${API_URL}/messages`)
+      .then(res => res.ok ? res.json() : null)
+      .then(data => { if (data) setMessages(data.messages || []); })
+      .catch(err => console.error("Impossible de charger les messages:", err));
   }, []);
 
   useEffect(() => {
-    if (!messagesLoaded) return;
-
-    const saveMessages = async () => {
-      try {
-        await fetch(`${API_URL}/messages`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages }),
-        });
-      } catch (error) {
-        console.error("Impossible de sauvegarder les messages:", error);
-      }
-    };
-
-    saveMessages();
-  }, [messages, messagesLoaded]);
+    if (initialLoad.current) {
+      initialLoad.current = false;
+      return;
+    }
+    fetch(`${API_URL}/messages`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages }),
+    }).catch(err => console.error("Impossible de sauvegarder les messages:", err));
+  }, [messages]);
 
   return (
     <div>

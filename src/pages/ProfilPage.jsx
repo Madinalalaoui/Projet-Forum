@@ -18,7 +18,6 @@ function getUserMessages(allMessages, username) {
   return result;
 }
 
-
 function ProfilPage({ user, messages = [], setMessages, viewedUsername }) {
   const [viewedUser, setViewedUser] = useState(null);
 

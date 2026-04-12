@@ -61,7 +61,6 @@ function AdminDashboard({ user }) {
       </header>
       <p className="admin-dashboard-subtitle">Gérez les inscriptions et les rôles des membres.</p>
 
-      {/* Stats */}
       <div className="admin-stats">
         <div className="admin-stat-card">
           <div className="admin-stat-icon pending">
@@ -85,7 +84,6 @@ function AdminDashboard({ user }) {
 
       <div className="admin-dashboard-grid">
 
-        {/* Inscriptions en attente */}
         <section className="admin-card">
           <h2 className="admin-card-title">
             <Clock size={15} />
@@ -120,7 +118,6 @@ function AdminDashboard({ user }) {
           )}
         </section>
 
-        {/* Gestion des rôles */}
         <section className="admin-card">
           <h2 className="admin-card-title">
             <Users size={15} />

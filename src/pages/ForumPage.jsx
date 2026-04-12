@@ -12,8 +12,7 @@ function ForumPage({ user, forums, setPage, messages, setMessages, navigateToPro
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
-  const isAdmin = user?.role === "admin";
-  const canAccessPrivate = !currentForum.private || isAdmin;
+  const canAccessPrivate = !currentForum.private || user?.role === "admin";
 
   const handleAddMessage = (msg) => {
     setMessages(prev => [{ ...msg, forumId: currentForum.id }, ...prev]);
@@ -55,7 +54,6 @@ function ForumPage({ user, forums, setPage, messages, setMessages, navigateToPro
   return (
     <div className="forum-layout">
 
-      {/* ---- Sidebar navigation ---- */}
       <aside className="left-sidebar">
 
         <section className="sidebar-section">
@@ -111,11 +109,9 @@ function ForumPage({ user, forums, setPage, messages, setMessages, navigateToPro
 
       </aside>
 
-      {/* ---- Colonne principale ---- */}
       <main className="messages-column">
         <div className="zone-messages">
 
-          {/* En-tête : titre + compteur */}
           <div className="zone-header">
             <h1 className="zone-title">
               {currentForum.private ? <Lock size={15} /> : <Globe size={15} />}
@@ -129,7 +125,6 @@ function ForumPage({ user, forums, setPage, messages, setMessages, navigateToPro
             )}
           </div>
 
-          {/* Corps : messages ou accès refusé */}
           {!canAccessPrivate ? (
             <div className="access-denied">
               <Lock size={32} />
@@ -147,7 +142,6 @@ function ForumPage({ user, forums, setPage, messages, setMessages, navigateToPro
                 />
               </div>
 
-              {/* Zone de saisie — toujours en bas */}
               <div className="message-input-area">
                 {user ? (
                   <MessageForm addMsg={handleAddMessage} user={user} />
