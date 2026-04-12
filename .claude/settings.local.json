@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(grep -r \"//\" \"c:\\\\Users\\\\saidk\\\\Desktop\\\\Mes repos GitHub\\\\Projet-Forum/src\" \"c:\\\\Users\\\\saidk\\\\Desktop\\\\Mes repos GitHub\\\\Projet-Forum/server\" --include=\"*.js\" --include=\"*.jsx\" --include=\"*.ts\" --include=\"*.tsx\")",
-      "Bash(npm install:*)"
-    ]
-  }
-}
