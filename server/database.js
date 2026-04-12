@@ -1,8 +1,6 @@
 import { MongoClient } from "mongodb";
 
-const uri = "mongodb://localhost"; 
-export const client = new MongoClient(uri);
-
+const client = new MongoClient("mongodb://localhost");
 const dbName = "forum";
 
 export async function connectDB() {

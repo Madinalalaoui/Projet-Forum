@@ -1,7 +1,4 @@
 # Explication du projet — Forum Organiz'asso
-
-Ce document explique comment fonctionne le projet de A à Z, pour quelqu'un qui débute en développement web.
-
 ---
 
 ## C'est quoi ce projet ?
@@ -26,6 +23,7 @@ Les administrateurs peuvent en plus :
 | Quoi | Technologie | Rôle |
 |---|---|---|
 | Frontend | React 19 | Ce que l'utilisateur voit et clique |
+| Routing | React Router v7 | Navigation entre les pages via les URLs |
 | Build tool | Vite | Compile et lance le projet React |
 | Backend | Express.js | Serveur qui répond aux requêtes HTTP |
 | Base de données | MongoDB | Stocke les utilisateurs et les messages |
@@ -70,18 +68,18 @@ Projet-Forum/
 │
 ├── src/                      ← Tout le frontend (React)
 │   ├── main.jsx              ← Point d'entrée React (monte l'app dans le HTML)
-│   ├── App.jsx               ← Composant racine, gère la navigation et l'état global
+│   ├── App.jsx               ← Composant racine, gère les routes et l'état global
 │   ├── config.js             ← URL de l'API (pour ne pas la répéter partout)
 │   │
 │   ├── utils/
 │   │   └── messages.js       ← Fonctions utilitaires partagées pour les messages
 │   │
-│   ├── pages/                ← Chaque "page" de l'application
-│   │   ├── LoginPage.jsx     ← Formulaire de connexion
-│   │   ├── SignupPage.jsx    ← Formulaire d'inscription
-│   │   ├── ForumPage.jsx     ← Page principale du forum
-│   │   ├── ProfilPage.jsx    ← Page profil d'un membre
-│   │   └── AdminDashboard.jsx← Interface d'administration
+│   ├── pages/                ← Chaque "page" de l'application (une par URL)
+│   │   ├── LoginPage.jsx     ← /login
+│   │   ├── SignupPage.jsx    ← /signup
+│   │   ├── ForumPage.jsx     ← /forum
+│   │   ├── ProfilPage.jsx    ← /profil/:username
+│   │   └── AdminDashboard.jsx← /admin
 │   │
 │   ├── components/           ← Petits morceaux réutilisables de l'interface
 │   │   ├── layout/
@@ -144,7 +142,7 @@ Un **effet** est du code qui s'exécute après le rendu du composant — typique
 ```jsx
 useEffect(() => {
   // Ce code s'exécute une seule fois au démarrage (grâce au [] à la fin)
-  fetch("http://localhost:3001/messages")
+  fetch(`${API_URL}/messages`)
     .then(res => res.json())
     .then(data => setMessages(data.messages));
 }, []); // ← tableau de dépendances vide = exécution au montage uniquement
@@ -152,25 +150,108 @@ useEffect(() => {
 
 Si le tableau contient des variables, l'effet se relance à chaque fois que ces variables changent.
 
----
+### Le concept de référence (`useRef`)
 
-## Comment la navigation fonctionne (sans React Router)
-
-Ce projet n'utilise pas de bibliothèque de navigation. À la place, il y a un état `page` dans `App.jsx` qui contient le nom de la page actuelle. Chaque page est affichée ou cachée selon la valeur de cet état :
+Un `useRef` est comme une variable normale : elle peut stocker n'importe quelle valeur, mais contrairement à un état elle **ne provoque pas de re-rendu** quand elle change. Utile pour garder une information "en mémoire" entre les rendus sans déclencher de mise à jour visuelle.
 
 ```jsx
-// Dans App.jsx
-const [page, setPage] = useState("forum_page");
+const initialLoad = useRef(true); // valeur initiale : true
 
-// Dans le JSX, on affiche conditionnellement :
-{page === "login_page" && <LoginPage ... />}
-{page === "forum_page" && <ForumPage ... />}
-{page === "admin_page" && user?.role === "admin" && <AdminDashboard ... />}
+// Plus tard dans un effet :
+if (initialLoad.current) {
+  initialLoad.current = false; // on modifie la ref → pas de re-rendu
+  return;
+}
 ```
 
-`&&` en JSX signifie : "affiche ce composant seulement si la condition à gauche est vraie".
+Dans ce projet, on l'utilise pour ignorer la première exécution du `useEffect` de sauvegarde des messages (voir section dédiée).
 
-Pour "changer de page", on appelle simplement `setPage("nom_de_la_page")`.
+---
+
+## Comment la navigation fonctionne (React Router)
+
+Ce projet utilise **React Router** pour gérer la navigation. Chaque page correspond à une URL réelle dans le navigateur.
+
+### Déclaration des routes dans `App.jsx`
+
+```jsx
+import { Routes, Route, Navigate } from 'react-router-dom';
+
+<Routes>
+  <Route path="/"        element={<Navigate to="/forum" replace />} />
+  <Route path="/forum"   element={<ForumPage ... />} />
+  <Route path="/login"   element={<LoginPage ... />} />
+  <Route path="/signup"  element={<SignupPage />} />
+  <Route path="/profil/:username" element={<ProfilPage ... />} />
+  <Route path="/admin"   element={
+    user?.role === "admin" ? <AdminDashboard /> : <Navigate to="/forum" replace />
+  } />
+</Routes>
+```
+
+- `path="/profil/:username"` → le `:username` est un **paramètre d'URL** (ex: `/profil/alice`)
+- `<Navigate to="..." replace />` → redirige automatiquement vers une autre URL
+- La route `/admin` est protégée : si l'utilisateur n'est pas admin, il est redirigé vers `/forum`
+
+### Naviguer depuis le code (`useNavigate`)
+
+Pour déclencher une navigation par programmation (après un clic, une action, etc.) :
+
+```jsx
+import { useNavigate } from 'react-router-dom';
+
+function LoginPage({ login }) {
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    // ... connexion réussie
+    login(data);        // mise à jour du state
+    navigate('/forum'); // redirection vers le forum
+  };
+}
+```
+
+### Récupérer un paramètre d'URL (`useParams`)
+
+Dans `ProfilPage`, le nom d'utilisateur vient directement de l'URL :
+
+```jsx
+import { useParams } from 'react-router-dom';
+
+function ProfilPage({ user, messages }) {
+  const { username } = useParams(); // récupère "alice" depuis /profil/alice
+  // ...
+}
+```
+
+### La barre de navigation (`NavLink`)
+
+`NavLink` est comme un lien `<a>` mais il ajoute automatiquement la classe CSS `active` quand l'URL correspond à son `to` :
+
+```jsx
+import { NavLink } from 'react-router-dom';
+
+<NavLink to="/forum">Forum</NavLink>
+// Si l'URL est /forum → <a class="active">Forum</a>
+// Sinon            → <a>Forum</a>
+```
+
+Plus besoin de gérer manuellement quelle page est "active" comme on ferait avec un état.
+
+### Le `BrowserRouter` dans `main.jsx`
+
+Tout React Router doit être enveloppé dans un `<BrowserRouter>`. C'est lui qui lit l'URL du navigateur et la met à disposition des composants :
+
+```jsx
+// main.jsx
+import { BrowserRouter } from 'react-router-dom';
+
+createRoot(...).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
+```
 
 ---
 
@@ -194,7 +275,7 @@ Message.jsx
   │  l'utilisateur clique "Supprimer"
   │  → appelle onDelete(id)
   │
-  └─► remontre jusqu'à ForumPage
+  └─► remonte jusqu'à ForumPage
         → handleDeleteMessage(id)
         → setMessages(prev => deleteRecursive(prev, id))
         → App.jsx sauvegarde automatiquement
@@ -217,16 +298,16 @@ En JavaScript, ça ressemble à ça :
 
 ```js
 {
-  id: "abc",
+  id: "1744455600000-x7k2m",
   auteur: "alice",
   contenu: "Bonjour !",
   createdAt: "2026-04-12T10:00:00.000Z",
   reponses: [
     {
-      id: "def",
+      id: "1744455660000-p9n4q",
       auteur: "bob",
       contenu: "Salut !",
-      reponses: []  // pas de réponse à cette réponse
+      reponses: []
     }
   ]
 }
@@ -382,23 +463,24 @@ useEffect(() => {
   fetch(`${API_URL}/messages`)
     .then(res => res.ok ? res.json() : null)
     .then(data => { if (data) setMessages(data.messages || []); });
-}, []);  // [] = exécuté une seule fois
+}, []);
 
 // Sauvegarde automatique à chaque changement de messages
 const initialLoad = useRef(true);
 useEffect(() => {
   if (initialLoad.current) {
     initialLoad.current = false;
-    return;  // on ignore la première exécution (au montage)
+    return; // on ignore la première exécution (au montage)
   }
   fetch(`${API_URL}/messages`, {
     method: "PUT",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ messages }),
   });
-}, [messages]);  // se relance à chaque fois que messages change
+}, [messages]); // se relance à chaque fois que messages change
 ```
 
-Le `useRef` est utilisé pour éviter de sauvegarder au tout premier rendu (quand `messages` est encore vide). Un `useRef` est comme une variable normale mais qui ne provoque pas de re-rendu quand elle change.
+Pourquoi le `useRef` ? Sans lui, le deuxième `useEffect` s'exécuterait dès le montage (avec `messages = []`) et sauvegarderait un tableau vide en base, effaçant tous les messages existants. Le `useRef` permet de sauter cette première exécution.
 
 ---
 
@@ -409,7 +491,8 @@ Ce fichier regroupe les fonctions partagées entre plusieurs composants pour év
 ```js
 // Crée un objet message avec les bons champs
 createMessage(username, contenu)
-// → { id, auteur, createdAt, contenu, reponses: [] }
+// → { id: "1744455600000-x7k2m", auteur, createdAt, contenu, reponses: [] }
+// L'ID combine Date.now() + une chaîne aléatoire pour éviter les doublons
 
 // Supprime un message dans l'arbre (par ID)
 deleteRecursive(messages, id)
@@ -443,4 +526,17 @@ formatDate("2026-04-12T10:00:00.000Z")
 3. Le backend cherche l'utilisateur par username dans MongoDB
 4. Il compare le mot de passe avec `bcrypt.compare()`
 5. Si ça correspond et que le compte est validé → le backend renvoie `{ username, role, firstName, lastName }`
-6. `login(data)` est appelé dans `App.jsx` → stocke dans localStorage, met à jour `user`, navigue vers le forum
+6. `login(data)` est appelé dans `App.jsx` → stocke dans localStorage, met à jour `user`
+7. `navigate('/forum')` redirige vers la page du forum
+
+---
+
+## Résumé du flux complet : voir le profil d'un autre membre
+
+1. L'utilisateur clique sur le nom d'un auteur dans un message (`Message.jsx`)
+2. `onViewProfile(auteur)` est appelé → remonte jusqu'à `ForumPage`
+3. `ForumPage` appelle `navigate('/profil/alice')` → React Router change l'URL
+4. Le composant `ProfilPage` se monte, `useParams()` retourne `{ username: "alice" }`
+5. Un `useEffect` détecte que c'est pas son propre profil → fait `GET /users/alice`
+6. Le backend renvoie les infos publiques de alice
+7. `ProfilPage` affiche la carte de alice et ses messages (filtrés depuis le state global)
