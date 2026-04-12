@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Trash2 } from 'lucide-react';
 import profilImg from '../assets/images/profil.png';
 import UserCard from '../components/user/UserCard.jsx';
+import { deleteRecursive, formatDate } from '../utils/messages.js';
+import { API_URL } from '../config.js';
 import '../assets/styles/Profil.css';
 
 function getUserMessages(allMessages, username) {
@@ -16,11 +18,6 @@ function getUserMessages(allMessages, username) {
   return result;
 }
 
-function removeMessageById(list, id) {
-  return list
-    .filter(msg => msg.id !== id)
-    .map(msg => ({ ...msg, reponses: removeMessageById(msg.reponses || [], id) }));
-}
 
 function ProfilPage({ user, messages = [], setMessages, viewedUsername }) {
   const [viewedUser, setViewedUser] = useState(null);
@@ -41,7 +38,7 @@ function ProfilPage({ user, messages = [], setMessages, viewedUsername }) {
       return;
     }
 
-    fetch(`http://localhost:3001/users/${viewedUsername}`)
+    fetch(`${API_URL}/users/${viewedUsername}`)
       .then(res => {
         if (!res.ok) throw new Error("Utilisateur non trouvé");
         return res.json();
@@ -67,7 +64,7 @@ function ProfilPage({ user, messages = [], setMessages, viewedUsername }) {
   }
 
   const handleDelete = (id) => {
-    setMessages(prev => removeMessageById(prev, id));
+    setMessages(prev => deleteRecursive(prev, id));
   };
 
   const userMessages = getUserMessages(messages, viewedUser.username);
@@ -93,7 +90,7 @@ function ProfilPage({ user, messages = [], setMessages, viewedUsername }) {
               {userMessages.map((msg) => (
                 <li key={msg.id} className="profil-message-item">
                   <div className="profil-msg-header">
-                    <time className="profil-msg-date">{msg.date}</time>
+                    <time className="profil-msg-date">{formatDate(msg.createdAt)}</time>
                     {isOwnProfile && (
                       <button className="btn-danger" onClick={() => handleDelete(msg.id)}>
                         <Trash2 size={12} />

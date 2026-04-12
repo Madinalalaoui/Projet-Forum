@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Send } from 'lucide-react';
+import { createMessage } from '../../utils/messages.js';
 
 function MessageForm({ addMsg, user }) {
   const [contenu, setContenu] = useState('');
@@ -9,15 +10,7 @@ function MessageForm({ addMsg, user }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!contenu.trim()) return;
-
-    addMsg({
-      id: Date.now(),
-      auteur: user.username,
-      date: new Date().toLocaleString(),
-      createdAt: new Date().toISOString(),
-      contenu,
-    });
-
+    addMsg(createMessage(user.username, contenu));
     setContenu('');
   };
 

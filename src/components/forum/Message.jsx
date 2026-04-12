@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Trash2, CornerDownRight, X, Send } from 'lucide-react';
+import { createMessage, formatDate } from '../../utils/messages.js';
 
-function Message({ auteur, date, contenu, reponses, id, onDelete, user, onReply, onViewProfile }) {
+function Message({ auteur, createdAt, contenu, reponses, id, onDelete, user, onReply, onViewProfile }) {
   const [showReply, setShowReply] = useState(false);
   const [texte, setTexte] = useState("");
 
@@ -10,16 +11,7 @@ function Message({ auteur, date, contenu, reponses, id, onDelete, user, onReply,
   const handleReply = (e) => {
     e.preventDefault();
     if (!texte.trim()) return;
-
-    onReply(id, {
-      id: Date.now(),
-      auteur: user.username,
-      date: new Date().toLocaleString(),
-      createdAt: new Date().toISOString(),
-      contenu: texte,
-      reponses: [],
-    });
-
+    onReply(id, createMessage(user.username, texte));
     setTexte("");
     setShowReply(false);
   };
@@ -41,7 +33,7 @@ function Message({ auteur, date, contenu, reponses, id, onDelete, user, onReply,
               {auteur}
             </span>
             <span className="msg-separator">·</span>
-            <time className="msg-date">{date}</time>
+            <time className="msg-date">{formatDate(createdAt)}</time>
           </p>
 
           <blockquote>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { API_URL } from '../config.js';
 import '../assets/styles/Signup.css';
 
 function SignupPage({ setPage }) {
@@ -26,7 +27,7 @@ function SignupPage({ setPage }) {
     }
 
     try {
-      const res = await fetch('http://localhost:3001/signup', {
+      const res = await fetch(`${API_URL}/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password: pass1, firstName, lastName }),
@@ -36,7 +37,7 @@ function SignupPage({ setPage }) {
       if (!res.ok) throw new Error(data.message || "Erreur lors de l'inscription");
 
       setSuccess(true);
-      setTimeout(() => setPage?.('login_page'), 2500);
+      setTimeout(() => setPage('login_page'), 2500);
     } catch (err) {
       setError(err.message);
     }
@@ -112,7 +113,7 @@ function SignupPage({ setPage }) {
 
         <p className="form-switch">
           Déjà inscrit ?{" "}
-          <button className="link-btn" onClick={() => setPage?.("login_page")}>
+          <button className="link-btn" onClick={() => setPage("login_page")}>
             Se connecter
           </button>
         </p>

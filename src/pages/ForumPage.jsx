@@ -3,41 +3,8 @@ import { Search, Globe, Lock } from 'lucide-react';
 import MessageList from '../components/forum/MessageList.jsx';
 import MessageForm from '../components/forum/MessageForm.jsx';
 import ForumType from '../components/forum/ForumType.jsx';
+import { deleteRecursive, addReplyRecursive } from '../utils/messages.js';
 import '../assets/styles/ForumPage.css';
-
-// --- Fonctions utilitaires pures ---
-
-function deleteRecursive(messages, id) {
-  return messages
-    .filter(msg => msg.id !== id)
-    .map(msg => ({ ...msg, reponses: deleteRecursive(msg.reponses || [], id) }));
-}
-
-function addReplyRecursive(messages, idMessage, reponse) {
-  return messages.map(msg => {
-    if (msg.id === idMessage) {
-      return { ...msg, reponses: [...(msg.reponses || []), reponse] };
-    }
-    return { ...msg, reponses: addReplyRecursive(msg.reponses || [], idMessage, reponse) };
-  });
-}
-
-function parseMessageDate(msg) {
-  if (msg.createdAt) {
-    const created = new Date(msg.createdAt);
-    if (!Number.isNaN(created.getTime())) return created;
-  }
-  const nativeParsed = new Date(msg.date);
-  if (!Number.isNaN(nativeParsed.getTime())) return nativeParsed;
-  const frMatch = String(msg.date || '').match(
-    /(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+|,\s*)(\d{1,2}):(\d{2})(?::(\d{2}))?/
-  );
-  if (!frMatch) return null;
-  const [, d, m, y, hh, mm, ss] = frMatch;
-  return new Date(Number(y), Number(m) - 1, Number(d), Number(hh), Number(mm), Number(ss || 0));
-}
-
-// -------------------------------------------------------
 
 function ForumPage({ user, forums, setPage, messages, setMessages, navigateToProfile }) {
   const [currentForum, setCurrentForum] = useState(forums[0]);
@@ -67,7 +34,7 @@ function ForumPage({ user, forums, setPage, messages, setMessages, navigateToPro
       || String(msg.auteur || '').toLowerCase().includes(q);
     const startBound = startDate ? new Date(`${startDate}T00:00:00`) : null;
     const endBound = endDate ? new Date(`${endDate}T23:59:59.999`) : null;
-    const messageDate = parseMessageDate(msg);
+    const messageDate = msg.createdAt ? new Date(msg.createdAt) : null;
     if (!startBound && !endBound) return textOk;
     if (!messageDate) return false;
     return textOk && (!startBound || messageDate >= startBound) && (!endBound || messageDate <= endBound);

@@ -5,6 +5,7 @@ import SignupPage from './pages/SignupPage.jsx';
 import ForumPage from './pages/ForumPage.jsx';
 import ProfilPage from './pages/ProfilPage.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
+import { API_URL } from './config.js';
 
 const FORUMS = [
   { id: 1, title: "Forum Public", private: false },
@@ -41,7 +42,7 @@ function App() {
   useEffect(() => {
     const loadMessages = async () => {
       try {
-        const response = await fetch("http://localhost:3001/messages");
+        const response = await fetch(`${API_URL}/messages`);
         if (response.ok) {
           const data = await response.json();
           setMessages(data.messages || []);
@@ -61,7 +62,7 @@ function App() {
 
     const saveMessages = async () => {
       try {
-        await fetch("http://localhost:3001/messages", {
+        await fetch(`${API_URL}/messages`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ messages }),

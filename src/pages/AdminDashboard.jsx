@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Shield, Check, X, ShieldPlus, ShieldMinus, Clock, Users } from 'lucide-react';
+import { API_URL } from '../config.js';
 import '../assets/styles/AdminDashboard.css';
 
 function AdminDashboard({ user }) {
@@ -13,7 +14,7 @@ function AdminDashboard({ user }) {
 
   const fetchPending = async () => {
     try {
-      const res = await fetch("http://localhost:3001/users/pending");
+      const res = await fetch(`${API_URL}/users/pending`);
       const data = await res.json();
       setPendingUsers(data.users || []);
     } catch (err) {
@@ -23,7 +24,7 @@ function AdminDashboard({ user }) {
 
   const fetchAllUsers = async () => {
     try {
-      const res = await fetch("http://localhost:3001/users");
+      const res = await fetch(`${API_URL}/users`);
       const data = await res.json();
       setAllUsers(data.users || []);
     } catch (err) {
@@ -32,18 +33,18 @@ function AdminDashboard({ user }) {
   };
 
   const handleValidate = async (username) => {
-    await fetch(`http://localhost:3001/users/${username}/validate`, { method: "PUT" });
+    await fetch(`${API_URL}/users/${username}/validate`, { method: "PUT" });
     setPendingUsers(prev => prev.filter(u => u.username !== username));
     fetchAllUsers();
   };
 
   const handleReject = async (username) => {
-    await fetch(`http://localhost:3001/users/${username}/reject`, { method: "PUT" });
+    await fetch(`${API_URL}/users/${username}/reject`, { method: "PUT" });
     setPendingUsers(prev => prev.filter(u => u.username !== username));
   };
 
   const handleRoleChange = async (username, newRole) => {
-    await fetch(`http://localhost:3001/users/${username}/role`, {
+    await fetch(`${API_URL}/users/${username}/role`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ role: newRole, requester: user.username }),
