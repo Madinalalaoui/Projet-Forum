@@ -1,6 +1,6 @@
 import Message from './Message.jsx';
 
-function MessageList({ messages, user, onReply, onDelete, onViewProfile }) {
+function MessageList({ messages, user, onReply, onDelete,onLike, onViewProfile }) {
   if (messages.length === 0) {
     return <p className="empty-state">Aucun message pour le moment.</p>;
   }
@@ -14,6 +14,7 @@ function MessageList({ messages, user, onReply, onDelete, onViewProfile }) {
           user={user}
           onReply={onReply}
           onDelete={onDelete}
+          onLike={onLike}
           onViewProfile={onViewProfile}
         />
       ))}

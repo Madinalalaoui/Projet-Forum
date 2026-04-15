@@ -89,7 +89,12 @@ function ProfilPage({ user, messages = [], setMessages }) {
               {userMessages.map((msg) => (
                 <li key={msg.id} className="profil-message-item">
                   <div className="profil-msg-header">
+                    <div className="profil-msg-meta-info">
                     <time className="profil-msg-date">{formatDate(msg.createdAt)}</time>
+                    <span className="profil-msg-likes" style={{ marginLeft: '10px', color: '#e0245e' }}>
+                      ❤️ {msg.likes?.length || 0}
+                    </span>
+                  </div>
                     {isOwnProfile && (
                       <button className="btn-danger" onClick={() => handleDelete(msg.id)}>
                         <Trash2 size={12} />

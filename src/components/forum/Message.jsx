@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Trash2, CornerDownRight, X, Send } from 'lucide-react';
 import { createMessage, formatDate } from '../../utils/messages.js';
 
-function Message({ auteur, createdAt, contenu, reponses, id, onDelete, user, onReply, onViewProfile }) {
+function Message({ auteur, createdAt, contenu, reponses, id,likes, onDelete, user, onReply, onLike, onViewProfile }) {
   const [showReply, setShowReply] = useState(false);
   const [texte, setTexte] = useState("");
 
@@ -12,9 +12,14 @@ function Message({ auteur, createdAt, contenu, reponses, id, onDelete, user, onR
     e.preventDefault();
     if (!texte.trim()) return;
     onReply(id, createMessage(user.username, texte));
-    setTexte("");
+    setTexte(""); 
     setShowReply(false);
   };
+
+const handleLike = () => {
+  if (!user) return;
+  onLike(id, user.username);
+};
 
   return (
     <li>
@@ -40,6 +45,10 @@ function Message({ auteur, createdAt, contenu, reponses, id, onDelete, user, onR
             <p className="message-content">{contenu}</p>
 
             <div className="msg-actions">
+              <button className="btn-like" onClick={handleLike}>
+                ❤️ {likes.length}
+              </button>
+
               {canDelete && (
                 <button className="btn-danger" onClick={() => onDelete(id)}>
                   <Trash2 size={12} />
@@ -77,6 +86,7 @@ function Message({ auteur, createdAt, contenu, reponses, id, onDelete, user, onR
                     onDelete={onDelete}
                     user={user}
                     onReply={onReply}
+                    onLike={onLike}
                     onViewProfile={onViewProfile}
                   />
                 ))}

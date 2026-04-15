@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toggleLikeRecursive } from '../utils/messages.js';
 import { Search, Globe, Lock } from 'lucide-react';
 import MessageList from '../components/forum/MessageList.jsx';
 import MessageForm from '../components/forum/MessageForm.jsx';
@@ -27,6 +28,10 @@ function ForumPage({ user, forums, messages, setMessages }) {
   const handleReply = (idMessage, reponse) => {
     setMessages(prev => addReplyRecursive(prev, idMessage, reponse));
   };
+
+const handleLike = (id, username) => {
+  setMessages(prev => toggleLikeRecursive(prev, id, username));
+};
 
   const messageMatchesFilters = (msg) => {
     const q = query.trim().toLowerCase();
@@ -139,6 +144,7 @@ function ForumPage({ user, forums, messages, setMessages }) {
                   onDelete={handleDeleteMessage}
                   user={user}
                   onReply={handleReply}
+                  onLike={handleLike}
                   onViewProfile={(username) => navigate(`/profil/${username}`)}
                 />
               </div>

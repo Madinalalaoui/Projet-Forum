@@ -5,6 +5,7 @@ export function createMessage(username, contenu) {
     createdAt: new Date().toISOString(),
     contenu,
     reponses: [],
+    likes : []
   };
 }
 
@@ -26,4 +27,27 @@ export function addReplyRecursive(messages, idMessage, reply) {
 export function formatDate(isoString) {
   if (!isoString) return '';
   return new Date(isoString).toLocaleString('fr-FR');
+}
+
+
+export function toggleLikeRecursive(messages, messageId, username) {
+  return messages.map(msg => {
+    if (msg.id === messageId) {
+      const likes = Array.isArray(msg.likes) ? msg.likes : [];
+
+      const alreadyLiked = likes.includes(username);
+
+      return {
+        ...msg,
+        likes: alreadyLiked
+          ? likes.filter(u => u !== username)
+          : [...likes, username]
+      };
+    }
+
+    return {
+      ...msg,
+      reponses: toggleLikeRecursive(msg.reponses || [], messageId, username)
+    };
+  });
 }
