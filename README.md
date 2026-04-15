@@ -83,6 +83,24 @@ npm run dev
 
 ---
 
+### Photos du rendu : 
+ 
+**Connexion :**
+[`photo connexion`](rendus/connexion.png)
+
+**Inscription :** 
+[`photo inscription`](rendus/inscription.png)
+
+**Admin :**
+[`photo dashboard admin`](rendus/admin.png)
+
+**Profil :**
+[`photo profil`](rendus/profil.png)
+
+**Forum :**
+[`photo Forum`](rendus/forum.png)
+
+
 ## Documentation
 
 Pour une explication détaillée du fonctionnement interne du projet (React, routing, récursion, backend...) : [`explication_du_projet.md`](explication_du_projet.md)
