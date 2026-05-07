@@ -1,94 +1,93 @@
-# Organiz'asso — Forum + Bot de Veille Cyber
+# Organiz'asso — Forum
 
-Application web de forum pour une association. Gestion des membres, des rôles et des messages avec réponses imbriquées. Cette branche (`cloud-bot`) ajoute un bot automatisé — **Captain Hook** — qui publie chaque matin les dernières actualités cybersécurité issues de [The Hacker News](https://thehackernews.com), ainsi que les scripts de déploiement sur Google Cloud.
+Application web de forum pour une association avec gestion des membres, des rôles et d'un fil de discussions. Le dépôt contient aussi un script Python optionnel de veille (bot) et des scripts d'automatisation.
 
 ---
 
-## Fonctionnalités
+## Résumé rapide
 
-- Inscription avec validation par un admin (le premier inscrit devient admin automatiquement)
-- Connexion / déconnexion
-- Forums public et privé (réservé aux admins)
-- Messages avec réponses imbriquées, recherche et filtres par date
-- Page profil par membre
-- Dashboard admin : valider/rejeter les inscriptions, promouvoir/rétrograder les membres
-- **Bot Captain Hook** : publie automatiquement des posts cybersécurité chaque matin à 8h
+- **Frontend** : application React servie par Vite (dev : `npm run dev`, port 5173).
+- **Backend** : API Express (écoute sur le port `3001`).
+- **BDD** : MongoDB locale (base `forum`, connexion par défaut sur `mongodb://localhost`).
+- **Bot (optionnel)** : script Python de veille présent dans `automatisation/`.
+
+---
+
+## Fonctionnalités principales
+
+- Inscription avec validation par un administrateur (le premier utilisateur créé est promu `admin`).
+- Authentification (login / logout).
+- Publication de messages et réponses imbriquées.
+- Dashboard administrateur : valider/rejeter les inscriptions, modifier les rôles.
+- Page profil pour chaque membre.
 
 ---
 
 ## Stack technique
 
-| Côté | Technologie |
-|------|-------------|
-| Frontend | React 19, React Router v7, Vite |
-| Backend | Node.js, Express 5 |
-| Base de données | MongoDB |
-| Bot | Python 3, BeautifulSoup4, Requests |
-| Cloud | Google Cloud Platform (Compute Engine, e2-micro) |
-| Sécurité | bcryptjs (hashage des mots de passe) |
-| Icônes | Lucide React |
+- Frontend : React, Vite
+- Backend : Node.js, Express
+- Base de données : MongoDB (connexion par défaut dans [server/database.js](server/database.js#L1))
+- Bot : Python 3 (optionnel)
+- Auth : `bcryptjs` pour le hachage des mots de passe
 
 ---
 
 ## Prérequis
 
-- [Node.js](https://nodejs.org) v18+
-- [MongoDB](https://www.mongodb.com) en local (port 27017 par défaut)
-- Python 3 + pip (pour le bot)
+- Node.js v18+
+- MongoDB (instance locale ou accessible depuis `mongodb://localhost`)
+- Python 3 + pip (si vous voulez exécuter le bot)
 
 ---
 
-## Lancer le projet en local
+## Installation et exécution en local
 
-**1. Installer les dépendances**
+1. Installer les dépendances frontend/backend :
+
 ```bash
 npm install
-pip3 install requests beautifulsoup4
 ```
 
-**2. Lancer le backend**
+2. Lancer l'API (backend) :
+
 ```bash
 node server/server.js
 ```
 
-**3. Lancer le frontend** (dans un autre terminal)
+3. Lancer l'interface (frontend) dans un autre terminal :
+
 ```bash
 npm run dev
 ```
 
-**4. Lancer le bot manuellement** (optionnel)
+4. (Optionnel) Lancer le bot manuellement :
+
 ```bash
-python3 cyber_forum_bot.py
+python3 automatisation/cyber_forum_bot.py
 ```
 
-| Service | URL |
-|---------|-----|
-| Frontend | http://localhost:5173 |
-| Backend | http://localhost:3001 |
+Services locaux par défaut :
 
-> Le premier compte créé via l'interface devient automatiquement administrateur.
+- Frontend : http://localhost:5173
+- Backend  : http://localhost:3001
 
-> En déploiement cloud, on remplace `localhost` par l'IP publique de la VM (L'IP peut changer à chaque recréation de la VM. IP actuelle : http://34.155.149.189:5173)
+Remarque : l'URL de l'API utilisée par le frontend est définie dans [src/config.js](src/config.js#L1). Pour du développement local, mettez-la à `http://localhost:3001/api`.
 
 ---
 
-## Déploiement sur Google Cloud (Ne pas le faire c'est juste pour l'explication)
+## Scripts et automatisation
 
-**1. Déployer l'infrastructure**
-```bash
-ADMIN_PASSWORD="tonmotdepasse" bash deploy.sh
-```
+Les scripts d'automatisation sont présents dans le dossier `automatisation/` :
 
-Crée la VM, installe les dépendances, clone le repo, lance les services et configure le cron — en une seule commande. L'IP du forum s'affiche à la fin.
+- `automatisation/deploy.sh` — script d'automatisation (inspectez-le avant utilisation).
+- `automatisation/seed.sh` — script d'initialisation (création d'utilisateurs de test).
 
-**2. Initialiser les comptes**
-```bash
-ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash seed.sh
-```
+Exécutez ces scripts uniquement si vous comprenez leurs effets et après adaptation à votre environnement.
 
 ---
 
-## Arborescence
+## Arborescence (extrait)
 
 ```
 ├── server/
@@ -98,42 +97,25 @@ ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash seed.sh
 │
 ├── src/
 │   ├── config.js         # URL de l'API
-│   ├── utils/messages.js # Utilitaires partagés (création, suppression, formatage)
 │   ├── pages/            # LoginPage, SignupPage, ForumPage, ProfilPage, AdminDashboard
-│   ├── components/
-│   │   ├── forum/        # Message, MessageList, MessageForm, ForumType
-│   │   ├── layout/       # NavigationPanel
-│   │   └── user/         # UserCard
-│   └── assets/
-│       ├── styles/       # CSS par composant
-│       └── images/
+│   └── components/       # composants UI
 │
-├── cyber_forum_bot.py    # Bot de veille cybersécurité
-├── deploy.sh             # Script de déploiement automatique
-└── seed.sh               # Script d'initialisation des comptes
+├── automatisation/       # bot et scripts (deploy, seed)
+└── rendus/               # captures d'écran
 ```
 
 ---
 
-### Photos du rendu :
+## Images (captures)
 
-**Connexion :**
-[`photo connexion`](rendus/connexion.png)
-
-**Inscription :**
-[`photo inscription`](rendus/inscription.png)
-
-**Admin :**
-[`photo dashboard admin`](rendus/admin.png)
-
-**Profil :**
-[`photo profil`](rendus/profil.png)
-
-**Forum :**
-[`photo Forum`](rendus/forum.png)
+- [rendus/connexion.png](rendus/connexion.png)
+- [rendus/inscription.png](rendus/inscription.png)
+- [rendus/admin.png](rendus/admin.png)
+- [rendus/profil.png](rendus/profil.png)
+- [rendus/forum.png](rendus/forum.png)
 
 ---
 
 ## Documentation
 
-Pour une explication détaillée du fonctionnement interne du projet (React, routing, récursion, backend...) : [`explication_du_projet.md`](explication_du_projet.md)
+Pour une explication détaillée du fonctionnement interne : [explication_du_projet.md](explication_du_projet.md)
