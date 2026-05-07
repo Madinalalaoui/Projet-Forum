@@ -1,7 +1,6 @@
 /* =============================================
    Page Profil
    ============================================= */
-
 .profil-page {
   padding: 24px 20px;
   max-width: 900px;
@@ -13,7 +12,7 @@
   grid-template-columns: 240px 1fr;
   gap: 20px;
   align-items: start;
-  
+
 }
 
 /* =============================================
@@ -25,7 +24,7 @@
 }
 
 .user-card {
-  background-color: var(--accent);
+  background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 24px 20px;
@@ -35,6 +34,7 @@
   align-items: center;
   text-align: center;
   gap: 12px;
+
 }
 
 .user-avatar {
@@ -83,6 +83,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 20px;
+  box-shadow: var(--shadow);
 }
 
 .profil-title {
@@ -130,27 +131,15 @@
 }
 
 .profil-msg-date {
-  font-size: 1rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
 }
 
 .profil-msg-content {
-  font-size: 1rem;
+  font-size: 0.92rem;
   color: var(--text);
   line-height: 1.6;
 }
-
-.profil-msg-meta-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.profil-msg-likes {
-  font-size: 1rem;
-  font-weight: bold;
-}
-
 
 /* =============================================
    Responsive

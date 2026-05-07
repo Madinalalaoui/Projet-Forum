@@ -8,25 +8,35 @@
   padding: 16px;
   /* La colonne de messages s'étire jusqu'en bas de l'écran */
   height: calc(100vh - 56px);
+  align-items: start;
 }
 
 /* =============================================
    Sidebar
    ============================================= */
 .left-sidebar {
+  position: sticky;
+  top: 72px;
   max-height: calc(100vh - 88px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
+.left-sidebar::-webkit-scrollbar { width: 3px; }
+.left-sidebar::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 4px;
+}
 
 /* Sections de la sidebar */
 .sidebar-section {
+  background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 14px;
-  background-color: var(--accent);
+  box-shadow: var(--shadow);
 }
 
 /* Label de section */
@@ -88,6 +98,11 @@
   justify-content: center;
 }
 
+.btn-reset:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+  background: transparent;
+}
 
 /* Zone de recherche */
 .search-fields {
@@ -180,6 +195,7 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
+
 }
 
 /* En-tête : titre du forum + compteur */
@@ -229,6 +245,7 @@
   flex-shrink: 0;
   padding: 12px 20px 16px;
   border-top: 1px solid var(--border);
+  background-color: var(--surface);
 }
 
 /* Formulaire en ligne : textarea + bouton côte à côte */
@@ -312,7 +329,7 @@
 .msg-author {
   font-weight: 600;
   color: var(--text);
-  font-size: 0.97rem;
+  font-size: 0.88rem;
 }
 
 .msg-author:hover {
@@ -325,7 +342,7 @@
 }
 
 .msg-date {
-  font-size: 0.94rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
 }
 
@@ -338,7 +355,7 @@
 .message-content {
   margin-bottom: 8px;
   color: var(--text);
-  font-size: 0.97rem;
+  font-size: 0.92rem;
   line-height: 1.65;
 }
 
@@ -359,7 +376,7 @@
 
 .btn-reply:hover {
   color: var(--text);
-  border-color: #94a3b8;
+  border-color: #a1a1aa;
   background: transparent;
 }
 
@@ -380,21 +397,6 @@
   align-self: flex-end;
   width: auto;
   font-size: 0.85rem;
-}
-
-.btn-like {
-  background: transparent;  
-  border: none;              
-  padding: 2px 6px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  border-radius: 6px;
-}
-
-.btn-like:hover {
-  background: white; 
 }
 
 /* =============================================
