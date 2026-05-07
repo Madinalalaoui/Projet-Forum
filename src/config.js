@@ -1,1 +1,1 @@
-export const API_URL = "http://34.155.149.189:3001";
+export const API_URL = "https://organiz-asso.ddns.net/api";

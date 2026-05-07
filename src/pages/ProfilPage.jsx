@@ -102,7 +102,7 @@ function ProfilPage({ user, messages = [], setMessages }) {
                       </button>
                     )}
                   </div>
-                  <p className="profil-msg-content">{msg.contenu}</p>
+                  {msg.auteur === "Captain Hook" ? (<div className="profil-msg-content" style={{whiteSpace: "pre-wrap"}}><strong>{msg.contenu.split("\n")[0]}</strong><span>{msg.contenu.split("\n").slice(1).join("\n")}</span></div>) : (<p className="profil-msg-content" style={{whiteSpace: "pre-wrap"}}>{msg.contenu}</p>)}
                 </li>
               ))}
             </ul>
