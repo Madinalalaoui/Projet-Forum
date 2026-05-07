@@ -2,18 +2,19 @@
    Variables — palette zinc sobre
    ============================================= */
 :root {
-  --bg:           #f4f4f5;   /* zinc-100 — fond page (pas blanc pur) */
-  --surface:      #ffffff;   /* cartes et panneaux */
-  --border:       #e4e4e7;   /* zinc-200 */
-  --primary:      #18181b;   /* zinc-900 — noir profond */
-  --primary-hover:#27272a;
+  --bg:           #f1f5f9;   /* slate-100 */
+  --surface:      #ffffff;
+  --accent:       #eef2ff;   /* indigo-50 — surfaces légères */
+  --border:       #e2e8f0;   /* slate-200 */
+  --primary:      #4f46e5;   /* indigo-600 */
+  --primary-hover:#4338ca;   /* indigo-700 */
   --danger:       #ef4444;
   --danger-hover: #dc2626;
-  --text:         #18181b;
-  --text-muted:   #71717a;   /* zinc-500 */
+  --text:         #0f172a;   /* slate-900 */
+  --text-muted:   #64748b;   /* slate-500 */
   --radius:       8px;
   --shadow:       0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:    0 4px 8px rgba(0,0,0,0.06);
+  --shadow-md:    0 4px 8px rgba(0,0,0,0.08);
 }
 
 /* =============================================
@@ -38,7 +39,7 @@ body {
    Navigation
    ============================================= */
 nav {
-  background-color: var(--primary);
+  background-color: #1e1b4b;
   padding: 0 24px;
   height: 56px;
   display: flex;
@@ -72,7 +73,7 @@ nav {
 
 .nav-links a {
   background: transparent;
-  color: #a1a1aa;
+  color: #a5b4fc;
   border: none;
   padding: 6px 12px;
   border-radius: var(--radius);
@@ -99,8 +100,8 @@ nav {
 .nav-logout {
   margin-left: auto;
   background: transparent;
-  color: #a1a1aa;
-  border: 1px solid #3f3f46;
+  color: #a5b4fc;
+  border: 1px solid #3730a3;
   padding: 4px 12px;
   font-size: 0.82rem;
   border-radius: var(--radius);
@@ -113,7 +114,7 @@ nav {
 
 .nav-logout:hover {
   color: #ffffff;
-  border-color: #71717a;
+  border-color: #6366f1;
   background: rgba(255,255,255,0.06);
 }
 
@@ -138,8 +139,8 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: #a1a1aa;
-  box-shadow: 0 0 0 3px rgba(24,24,27,0.06);
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
 }
 
 /* =============================================
@@ -161,8 +162,8 @@ button {
 }
 
 button:hover {
-  background-color: #f4f4f5;
-  border-color: #a1a1aa;
+  background-color: #f8fafc;
+  border-color: #94a3b8;
 }
 
 /* Bouton principal — fond noir */
@@ -186,8 +187,8 @@ button:hover {
 
 .btn-secondary:hover {
   color: var(--text);
-  border-color: #a1a1aa;
-  background-color: #fafafa;
+  border-color: #94a3b8;
+  background-color: #f8fafc;
 }
 
 /* Bouton danger — rouge discret */

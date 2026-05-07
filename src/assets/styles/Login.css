@@ -5,7 +5,7 @@
   max-width: 380px;
   margin: 80px auto;
   padding: 36px;
-  background-color: #fff3c4;
+  background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -82,5 +82,5 @@
 }
 
 body {
-  background-color: #a9a3ff;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
 }

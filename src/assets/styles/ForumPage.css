@@ -26,7 +26,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 14px;
-  background-color : #fff3c4;
+  background-color: var(--accent);
 }
 
 /* Label de section */
@@ -180,7 +180,6 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
-  background-color : #fff3c4;
 }
 
 /* En-tête : titre du forum + compteur */
@@ -190,7 +189,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px 14px;
-  border-bottom: 1px solid #4c1d95;
+  border-bottom: 1px solid var(--border);
 }
 
 .zone-title {
@@ -360,7 +359,7 @@
 
 .btn-reply:hover {
   color: var(--text);
-  border-color: #a1a1aa;
+  border-color: #94a3b8;
   background: transparent;
 }
 
