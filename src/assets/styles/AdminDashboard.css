@@ -24,7 +24,7 @@
 
 .admin-dashboard-subtitle {
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: #4c1d95;
   margin-bottom: 28px;
 }
 
@@ -45,11 +45,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-<<<<<<< HEAD
-
-=======
   background-color: #f4fefe;
->>>>>>> 522d58b266c00fdcc45f1b1b7e9a99da05a50105
 }
 
 .admin-stat-icon {
@@ -99,11 +95,7 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
-<<<<<<< HEAD
-
-=======
   background-color: #f4fefe;
->>>>>>> 522d58b266c00fdcc45f1b1b7e9a99da05a50105
 }
 
 .admin-card-title {
@@ -114,7 +106,7 @@
   font-weight: 600;
   color: var(--text);
   padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #4c1d95;
   background-color: #fafafa;
 }
 

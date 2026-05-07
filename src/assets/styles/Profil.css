@@ -1,6 +1,7 @@
 /* =============================================
    Page Profil
    ============================================= */
+
 .profil-page {
   padding: 24px 20px;
   max-width: 900px;
@@ -12,7 +13,7 @@
   grid-template-columns: 240px 1fr;
   gap: 20px;
   align-items: start;
-
+  
 }
 
 /* =============================================
@@ -34,11 +35,7 @@
   align-items: center;
   text-align: center;
   gap: 12px;
-<<<<<<< HEAD
-
-=======
   background-color: #dadada;
->>>>>>> 522d58b266c00fdcc45f1b1b7e9a99da05a50105
 }
 
 .user-avatar {
@@ -87,11 +84,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 20px;
-<<<<<<< HEAD
-  box-shadow: var(--shadow);
-=======
   background-color: #dadada;
->>>>>>> 522d58b266c00fdcc45f1b1b7e9a99da05a50105
 }
 
 .profil-title {
@@ -100,7 +93,7 @@
   color: var(--text);
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #4c1d95;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -139,15 +132,27 @@
 }
 
 .profil-msg-date {
-  font-size: 0.78rem;
+  font-size: 1rem;
   color: var(--text-muted);
 }
 
 .profil-msg-content {
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: var(--text);
   line-height: 1.6;
 }
+
+.profil-msg-meta-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profil-msg-likes {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
 
 /* =============================================
    Responsive
@@ -173,3 +178,4 @@
     flex-shrink: 0;
   }
 }
+

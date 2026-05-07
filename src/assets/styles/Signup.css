@@ -5,11 +5,7 @@
   max-width: 440px;
   margin: 60px auto;
   padding: 36px;
-<<<<<<< HEAD
-  background-color: var(--surface);
-=======
   background-color: #dadada;
->>>>>>> 522d58b266c00fdcc45f1b1b7e9a99da05a50105
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -97,3 +93,4 @@
     padding: 24px;
   }
 }
+
