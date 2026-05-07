@@ -36,7 +36,11 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 14px;
+<<<<<<< HEAD
   box-shadow: var(--shadow);
+=======
+  background-color : #f4fefe;
+>>>>>>> 522d58b266c00fdcc45f1b1b7e9a99da05a50105
 }
 
 /* Label de section */
@@ -195,7 +199,11 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
+<<<<<<< HEAD
 
+=======
+  background-color : #f4fefe;
+>>>>>>> 522d58b266c00fdcc45f1b1b7e9a99da05a50105
 }
 
 /* En-tête : titre du forum + compteur */

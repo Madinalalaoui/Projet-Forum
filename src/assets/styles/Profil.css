@@ -34,7 +34,11 @@
   align-items: center;
   text-align: center;
   gap: 12px;
+<<<<<<< HEAD
 
+=======
+  background-color: #dadada;
+>>>>>>> 522d58b266c00fdcc45f1b1b7e9a99da05a50105
 }
 
 .user-avatar {
@@ -83,7 +87,11 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 20px;
+<<<<<<< HEAD
   box-shadow: var(--shadow);
+=======
+  background-color: #dadada;
+>>>>>>> 522d58b266c00fdcc45f1b1b7e9a99da05a50105
 }
 
 .profil-title {

@@ -5,7 +5,11 @@
   max-width: 380px;
   margin: 80px auto;
   padding: 36px;
+<<<<<<< HEAD
   background-color: var(--surface);
+=======
+  background-color: #dadada;
+>>>>>>> 522d58b266c00fdcc45f1b1b7e9a99da05a50105
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -79,4 +83,12 @@
     margin: 20px;
     padding: 24px;
   }
+<<<<<<< HEAD
 }
+=======
+}
+
+body {
+  background-color: #03224c;
+}
+>>>>>>> 522d58b266c00fdcc45f1b1b7e9a99da05a50105
