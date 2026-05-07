@@ -35,7 +35,7 @@
   align-items: center;
   text-align: center;
   gap: 12px;
-  background-color: #fff3c4;
+  background-color: #dadada;
 }
 
 .user-avatar {
@@ -84,7 +84,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 20px;
-  background-color: #fff3c4;
+  background-color: #dadada;
 }
 
 .profil-title {
