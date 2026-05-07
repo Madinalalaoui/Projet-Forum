@@ -42,7 +42,7 @@ const handleLike = () => {
           </p>
 
           <blockquote>
-            <p className="message-content">{contenu}</p>
+            <div className="message-content" style={{whiteSpace: "pre-wrap"}}><strong>{contenu.split("\n")[0]}</strong><span>{contenu.split("\n").slice(1).join("\n")}</span></div>
 
             <div className="msg-actions">
               <button className="btn-like" onClick={handleLike}>
