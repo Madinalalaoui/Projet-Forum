@@ -2,19 +2,17 @@
    Variables — palette zinc sobre
    ============================================= */
 :root {
-  --bg:           #f1f5f9;   /* slate-100 */
-  --surface:      #ffffff;
-  --accent:       #eef2ff;   /* indigo-50 — surfaces légères */
-  --border:       #e2e8f0;   /* slate-200 */
-  --primary:      #4f46e5;   /* indigo-600 */
-  --primary-hover:#4338ca;   /* indigo-700 */
-  --danger:       #ef4444;
-  --danger-hover: #dc2626;
-  --text:         #0f172a;   /* slate-900 */
-  --text-muted:   #64748b;   /* slate-500 */
-  --radius:       8px;
-  --shadow:       0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:    0 4px 8px rgba(0,0,0,0.08);
+  --bg:             #f4f4f5;
+  --surface:        #ffffff;
+  --border:         #e4e4e7;
+  --border-accent:  #4c1d95;
+  --primary:        #18181b;
+  --primary-hover:  #27272a;
+  --danger:         #ef4444;
+  --text:           #18181b;
+  --text-muted:     #71717a;
+  --radius:         8px;
+  --shadow:         0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
 }
 
 /* =============================================
@@ -28,7 +26,7 @@
 
 body {
   font-family: 'Segoe UI', system-ui, Arial, sans-serif;
-  background-color: var(--bg);
+  background-color: #03224c;
   color: var(--text);
   min-height: 100vh;
   line-height: 1.6;
@@ -39,7 +37,7 @@ body {
    Navigation
    ============================================= */
 nav {
-  background-color: #1e1b4b;
+  background-color: var(--primary);
   padding: 0 24px;
   height: 56px;
   display: flex;
@@ -73,7 +71,7 @@ nav {
 
 .nav-links a {
   background: transparent;
-  color: #a5b4fc;
+  color: #a1a1aa;
   border: none;
   padding: 6px 12px;
   border-radius: var(--radius);
@@ -100,8 +98,8 @@ nav {
 .nav-logout {
   margin-left: auto;
   background: transparent;
-  color: #a5b4fc;
-  border: 1px solid #3730a3;
+  color: #a1a1aa;
+  border: 1px solid #3f3f46;
   padding: 4px 12px;
   font-size: 0.82rem;
   border-radius: var(--radius);
@@ -114,7 +112,7 @@ nav {
 
 .nav-logout:hover {
   color: #ffffff;
-  border-color: #6366f1;
+  border-color: var(--text-muted);
   background: rgba(255,255,255,0.06);
 }
 
@@ -126,7 +124,7 @@ textarea,
 select {
   font-family: inherit;
   font-size: 0.9rem;
-  background-color: #ffffff;
+  background-color: var(--surface);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -139,8 +137,8 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+  border-color: #a1a1aa;
+  box-shadow: 0 0 0 3px rgba(24,24,27,0.06);
 }
 
 /* =============================================
@@ -153,7 +151,7 @@ button {
   border-radius: var(--radius);
   border: 1px solid var(--border);
   cursor: pointer;
-  background-color: #ffffff;
+  background-color: var(--surface);
   color: var(--text);
   transition: background-color 0.15s, border-color 0.15s;
   display: inline-flex;
@@ -162,8 +160,8 @@ button {
 }
 
 button:hover {
-  background-color: #f8fafc;
-  border-color: #94a3b8;
+  background-color: var(--bg);
+  border-color: #a1a1aa;
 }
 
 /* Bouton principal — fond noir */
@@ -180,15 +178,15 @@ button:hover {
 
 /* Bouton secondaire */
 .btn-secondary {
-  background-color: #ffffff;
+  background-color: var(--surface);
   color: var(--text-muted);
   border-color: var(--border);
 }
 
 .btn-secondary:hover {
   color: var(--text);
-  border-color: #94a3b8;
-  background-color: #f8fafc;
+  border-color: #a1a1aa;
+  background-color: #fafafa;
 }
 
 /* Bouton danger — rouge discret */

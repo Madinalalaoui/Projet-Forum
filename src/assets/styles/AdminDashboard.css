@@ -24,7 +24,7 @@
 
 .admin-dashboard-subtitle {
   font-size: 0.875rem;
-  color: #4c1d95;
+  color: var(--border-accent);
   margin-bottom: 28px;
 }
 
@@ -45,7 +45,6 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  background-color: #f4fefe;
 }
 
 .admin-stat-icon {
@@ -95,7 +94,6 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
-  background-color: #f4fefe;
 }
 
 .admin-card-title {
@@ -106,7 +104,7 @@
   font-weight: 600;
   color: var(--text);
   padding: 16px 20px;
-  border-bottom: 1px solid #4c1d95;
+  border-bottom: 1px solid var(--border-accent);
   background-color: #fafafa;
 }
 
@@ -182,7 +180,7 @@
 /* --- Badge (inscriptions en attente) --- */
 .admin-badge {
   margin-left: auto;
-  background-color: #ef4444;
+  background-color: var(--danger);
   color: #fff;
   font-size: 0.7rem;
   font-weight: 600;
