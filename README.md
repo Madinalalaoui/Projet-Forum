@@ -14,6 +14,13 @@ Application web de forum pour une association. Gestion des membres, des rôles e
 - Dashboard admin : valider/rejeter les inscriptions, promouvoir/rétrograder les membres
 - **Bot Captain Hook** : publie automatiquement des posts cybersécurité chaque matin à 8h
 
+
+
+
+
+
+
+
 ---
 
 ## Stack technique
@@ -40,6 +47,8 @@ Application web de forum pour une association. Gestion des membres, des rôles e
 
 ## Lancer le projet en local
 
+
+
 **1. Installer les dépendances**
 ```bash
 npm install
@@ -47,16 +56,19 @@ pip3 install requests beautifulsoup4
 ```
 
 **2. Lancer le backend**
+
 ```bash
 node server/server.js
 ```
 
 **3. Lancer le frontend** (dans un autre terminal)
+
 ```bash
 npm run dev
 ```
 
 **4. Lancer le bot manuellement** (optionnel)
+
 ```bash
 python3 cyber_forum_bot.py
 ```
@@ -67,6 +79,7 @@ python3 cyber_forum_bot.py
 | Backend | http://localhost:3001 |
 
 > Le premier compte créé via l'interface devient automatiquement administrateur.
+
 
 > En déploiement cloud, on remplace `localhost` par l'IP publique de la VM (L'IP peut changer à chaque recréation de la VM. IP actuelle : http://34.155.149.189:5173)
 
@@ -81,6 +94,7 @@ ADMIN_PASSWORD="tonmotdepasse" bash deploy.sh
 
 Crée la VM, installe les dépendances, clone le repo, lance les services et configure le cron — en une seule commande. L'IP du forum s'affiche à la fin.
 
+
 **2. Initialiser les comptes**
 ```bash
 ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash seed.sh
@@ -92,9 +106,7 @@ ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash seed.sh
 
 ```
 ├── server/
-│   ├── database.js       # Connexion MongoDB
-│   ├── init.js           # Création d'un utilisateur en base
-│   └── server.js         # API REST (users, messages)
+@@ -98,42 +97,25 @@ ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash seed.sh
 │
 ├── src/
 │   ├── config.js         # URL de l'API
@@ -131,6 +143,9 @@ ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash seed.sh
 
 **Forum :**
 [`photo Forum`](rendus/forum.png)
+
+
+
 
 ---
 
