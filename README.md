@@ -97,7 +97,7 @@ npm run build && pm2 restart forum-frontend
 
 ---
 
-## Déploiement sur Google Cloud
+## Déploiement sur Google Cloud (Déjà réalisé)
 
 > /!\ Les scripts de déploiement sont dans le dossier `automatisation/`.
 
@@ -112,6 +112,8 @@ Crée la VM, installe les dépendances, clone le repo, configure Nginx + SSL, la
 ```bash
 ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash automatisation/seed.sh
 ```
+
+
 ---
 
 ## Arborescence
