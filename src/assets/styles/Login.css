@@ -5,7 +5,7 @@
   max-width: 380px;
   margin: 80px auto;
   padding: 36px;
-  background-color: #dadada;
+  background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);

@@ -122,7 +122,7 @@ function AdminDashboard({ user }) {
           <h2 className="admin-card-title">
             <Users size={15} />
             Membres
-            <span className="admin-badge" style={{ background: 'var(--text-muted)' }}>{allUsers.length}</span>
+            <span className="admin-badge" style={{ background: 'var(--border-accent)' }}>{allUsers.length}</span>
           </h2>
 
           {allUsers.length === 0 ? (

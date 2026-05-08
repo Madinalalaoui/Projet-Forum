@@ -3,9 +3,9 @@
    ============================================= */
 :root {
   --bg:             #f4f4f5;
-  --surface:        #ffffff;
+  --surface:        #fafafa;
   --border:         #e4e4e7;
-  --border-accent:  #4c1d95;
+  --border-accent:  #71717a;
   --primary:        #18181b;
   --primary-hover:  #27272a;
   --danger:         #ef4444;

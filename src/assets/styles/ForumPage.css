@@ -203,12 +203,14 @@
 }
 
 .message-count {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  background-color: var(--bg);
-  border: 1px solid var(--border);
-  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--border-accent);
+  padding: 1px 7px;
   border-radius: 99px;
+  min-width: 20px;
+  text-align: center;
 }
 
 /* Zone de défilement — prend tout l'espace disponible */
