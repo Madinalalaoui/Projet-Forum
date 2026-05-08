@@ -19,7 +19,7 @@ function App() {
     return saved ? JSON.parse(saved) : null;
   });
   const [messages, setMessages] = useState([]);
-  const initialLoad = useRef(true);
+  const hasFetched = useRef(false);
   const navigate = useNavigate();
 
   const handleLogin = (userData) => {
@@ -37,15 +37,17 @@ function App() {
   useEffect(() => {
     fetch(`${API_URL}/messages`)
       .then(res => res.ok ? res.json() : null)
-      .then(data => { if (data) setMessages(data.messages || []); })
+      .then(data => {
+        if (data) {
+          hasFetched.current = true;
+          setMessages(data.messages || []);
+        }
+      })
       .catch(err => console.error("Impossible de charger les messages:", err));
   }, []);
 
   useEffect(() => {
-    if (initialLoad.current) {
-      initialLoad.current = false;
-      return;
-    }
+    if (!hasFetched.current) return;
     fetch(`${API_URL}/messages`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

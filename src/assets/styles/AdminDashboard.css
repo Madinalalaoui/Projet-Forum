@@ -15,16 +15,19 @@
   margin-bottom: 8px;
 }
 
+.admin-dashboard-header {
+  color: #ffffff;
+}
+
 .admin-dashboard-header h1 {
   font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: var(--text);
 }
 
 .admin-dashboard-subtitle {
   font-size: 0.875rem;
-  color: #4c1d95;
+  color: rgba(255,255,255,0.7);
   margin-bottom: 28px;
 }
 
@@ -45,7 +48,6 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  background-color: #fff3c4;
 }
 
 .admin-stat-icon {
@@ -59,12 +61,12 @@
 }
 
 .admin-stat-icon.pending {
-  background-color: #fef9c3;
+  background-color: #fafafa;
   color: #a16207;
 }
 
 .admin-stat-icon.members {
-  background-color: #f0fdf4;
+  background-color: #fafafa;
   color: #16a34a;
 }
 
@@ -95,7 +97,6 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
-  background-color: #fff3c4;
 }
 
 .admin-card-title {
@@ -106,7 +107,7 @@
   font-weight: 600;
   color: var(--text);
   padding: 16px 20px;
-  border-bottom: 1px solid #4c1d95;
+  border-bottom: 1px solid var(--border-accent);
   background-color: #fafafa;
 }
 
@@ -137,7 +138,7 @@
   height: 36px;
   border-radius: 50%;
   background-color: var(--primary);
-  color: #ffffff;
+  color: #fff;
   font-size: 0.85rem;
   font-weight: 600;
   display: flex;
@@ -182,8 +183,8 @@
 /* --- Badge (inscriptions en attente) --- */
 .admin-badge {
   margin-left: auto;
-  background-color: #ef4444;
-  color: #fff;
+  background-color: var(--danger);
+  color: #fafafa;
   font-size: 0.7rem;
   font-weight: 600;
   padding: 1px 7px;
@@ -204,7 +205,7 @@
 .btn-validate:hover {
   background-color: #16a34a;
   border-color: #16a34a;
-  color: #ffffff;
+  color: #fafafa;
 }
 
 /* --- Empty state --- */

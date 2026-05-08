@@ -124,10 +124,7 @@ const handleLike = (id, username) => {
               {currentForum.title}
             </h1>
             {canAccessPrivate && (
-              <span className="message-count">
-                {filteredMessages.length} message{filteredMessages.length !== 1 ? "s" : ""}
-                {hasActiveFilters && " trouvé(s)"}
-              </span>
+              <span className="message-count">{filteredMessages.length}</span>
             )}
           </div>
 

@@ -1,9 +1,12 @@
 # Organiz'asso — Forum + Bot de Veille Cyber
+# Organiz'asso — Forum + Bot de Veille Cyber
 
+Application web de forum pour une association. Gestion des membres, des rôles et des messages avec réponses imbriquées. Cette branche (`cloud-bot`) ajoute un bot automatisé — **Captain Hook** — qui publie chaque matin les dernières actualités cybersécurité issues de [The Hacker News](https://thehackernews.com), ainsi que les scripts de déploiement sur Google Cloud.
 Application web de forum pour une association. Gestion des membres, des rôles et des messages avec réponses imbriquées. Cette branche (`cloud-bot`) ajoute un bot automatisé — **Captain Hook** — qui publie chaque matin les dernières actualités cybersécurité issues de [The Hacker News](https://thehackernews.com), ainsi que les scripts de déploiement sur Google Cloud.
 
 ---
 
+## Fonctionnalités
 ## Fonctionnalités
 
 - Inscription avec validation par un admin (le premier inscrit devient admin automatiquement)
@@ -27,6 +30,15 @@ Application web de forum pour une association. Gestion des membres, des rôles e
 | Cloud | Google Cloud Platform (Compute Engine, e2-micro) |
 | Sécurité | bcryptjs (hashage des mots de passe) |
 | Icônes | Lucide React |
+| Côté | Technologie |
+|------|-------------|
+| Frontend | React 19, React Router v7, Vite |
+| Backend | Node.js, Express 5 |
+| Base de données | MongoDB |
+| Bot | Python 3, BeautifulSoup4, Requests |
+| Cloud | Google Cloud Platform (Compute Engine, e2-micro) |
+| Sécurité | bcryptjs (hashage des mots de passe) |
+| Icônes | Lucide React |
 
 ---
 
@@ -35,14 +47,19 @@ Application web de forum pour une association. Gestion des membres, des rôles e
 - [Node.js](https://nodejs.org) v18+
 - [MongoDB](https://www.mongodb.com) en local (port 27017 par défaut)
 - Python 3 + pip (pour le bot)
+- [Node.js](https://nodejs.org) v18+
+- [MongoDB](https://www.mongodb.com) en local (port 27017 par défaut)
+- Python 3 + pip (pour le bot)
 
 ---
 
+## Lancer le projet en local
 ## Lancer le projet en local
 
 **1. Installer les dépendances**
 ```bash
 npm install
+pip3 install requests beautifulsoup4
 pip3 install requests beautifulsoup4
 ```
 
@@ -117,15 +134,15 @@ ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash automatisation/se
 ---
 
 ## Arborescence
+## Arborescence
 
 ```
 ├── server/
-│   ├── database.js       # Connexion MongoDB
-│   ├── init.js           # Création d'un utilisateur en base
-│   └── server.js         # API REST (users, messages)
+@@ -98,42 +97,25 @@ ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash seed.sh
 │
 ├── src/
 │   ├── config.js         # URL de l'API
+│   ├── utils/messages.js # Utilitaires partagés (création, suppression, formatage)
 │   ├── utils/messages.js # Utilitaires partagés (création, suppression, formatage)
 │   ├── pages/            # LoginPage, SignupPage, ForumPage, ProfilPage, AdminDashboard
 │   ├── components/
@@ -166,4 +183,5 @@ ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash automatisation/se
 
 ## Documentation
 
+Pour une explication détaillée du fonctionnement interne du projet (React, routing, récursion, backend...) : [`explication_du_projet.md`](explication_du_projet.md)
 Pour une explication détaillée du fonctionnement interne du projet (React, routing, récursion, backend...) : [`explication_du_projet.md`](explication_du_projet.md)

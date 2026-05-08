@@ -23,10 +23,11 @@
 
 /* Sections de la sidebar */
 .sidebar-section {
+  background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 14px;
-  background-color : #fff3c4;
+  box-shadow: var(--shadow);
 }
 
 /* Label de section */
@@ -52,23 +53,24 @@
   text-align: left;
   margin-bottom: 2px;
   background-color: transparent;
-  border: none;
+  border: 1px solid var(--border);
   color: var(--text-muted);
   font-size: 0.88rem;
   padding: 7px 10px;
   border-radius: var(--radius);
+  
 }
 
 .forum-btn:hover {
   background-color: var(--bg);
-  border: none;
+  border: 1px solid transparent;
   color: var(--text);
 }
 
 .forum-btn.active {
   background-color: var(--primary);
   color: #ffffff;
-  border: none;
+  border: 1px solid transparent;
   font-weight: 500;
 }
 
@@ -180,7 +182,6 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
-  background-color : #fff3c4;
 }
 
 /* En-tête : titre du forum + compteur */
@@ -190,7 +191,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px 14px;
-  border-bottom: 1px solid #4c1d95;
+  border-bottom: 1px solid var(--border-accent);
 }
 
 .zone-title {
@@ -203,12 +204,14 @@
 }
 
 .message-count {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  background-color: var(--bg);
-  border: 1px solid var(--border);
-  padding: 2px 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--border-accent);
+  padding: 1px 7px;
   border-radius: 99px;
+  min-width: 20px;
+  text-align: center;
 }
 
 /* Zone de défilement — prend tout l'espace disponible */
@@ -244,7 +247,6 @@
   min-height: 44px;
   max-height: 120px;
   resize: none;
-  margin: 0;
 }
 
 .message-input-area .btn-primary {
@@ -252,7 +254,6 @@
   align-self: flex-end;
   width: auto;
   padding: 10px 18px;
-  margin: 0;
 }
 
 /* =============================================
@@ -285,9 +286,8 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: var(--bg);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
+  background-color: var(--primary);
+  color: #ffffff;
   font-size: 0.78rem;
   font-weight: 700;
   display: flex;
@@ -513,3 +513,4 @@ blockquote > ul .msg-avatar {
     height: 80vh;
   }
 }
+

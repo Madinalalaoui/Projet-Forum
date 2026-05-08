@@ -2,18 +2,17 @@
    Variables — palette zinc sobre
    ============================================= */
 :root {
-  --bg:           #f4f4f5;   /* zinc-100 — fond page (pas blanc pur) */
-  --surface:      #ffffff;   /* cartes et panneaux */
-  --border:       #e4e4e7;   /* zinc-200 */
-  --primary:      #18181b;   /* zinc-900 — noir profond */
-  --primary-hover:#27272a;
-  --danger:       #ef4444;
-  --danger-hover: #dc2626;
-  --text:         #18181b;
-  --text-muted:   #71717a;   /* zinc-500 */
-  --radius:       8px;
-  --shadow:       0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:    0 4px 8px rgba(0,0,0,0.06);
+  --bg:             #f4f4f5;
+  --surface:        #fafafa;
+  --border:         #b5c5d8;
+  --border-accent:  #71717a;
+  --primary:        #18181b;
+  --primary-hover:  #27272a;
+  --danger:         #ef4444;
+  --text:           #18181b;
+  --text-muted:     #71717a;
+  --radius:         8px;
+  --shadow:         0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
 }
 
 /* =============================================
@@ -27,7 +26,7 @@
 
 body {
   font-family: 'Segoe UI', system-ui, Arial, sans-serif;
-  background-color: var(--bg);
+  background-color: #03224c;
   color: var(--text);
   min-height: 100vh;
   line-height: 1.6;
@@ -113,7 +112,7 @@ nav {
 
 .nav-logout:hover {
   color: #ffffff;
-  border-color: #71717a;
+  border-color: var(--text-muted);
   background: rgba(255,255,255,0.06);
 }
 
@@ -125,7 +124,7 @@ textarea,
 select {
   font-family: inherit;
   font-size: 0.9rem;
-  background-color: #ffffff;
+  background-color: var(--surface);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -138,7 +137,7 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: #a1a1aa;
+  border-color: #738094;
   box-shadow: 0 0 0 3px rgba(24,24,27,0.06);
 }
 
@@ -152,7 +151,7 @@ button {
   border-radius: var(--radius);
   border: 1px solid var(--border);
   cursor: pointer;
-  background-color: #ffffff;
+  background-color: var(--surface);
   color: var(--text);
   transition: background-color 0.15s, border-color 0.15s;
   display: inline-flex;
@@ -161,7 +160,7 @@ button {
 }
 
 button:hover {
-  background-color: #f4f4f5;
+  background-color: var(--bg);
   border-color: #a1a1aa;
 }
 
@@ -179,7 +178,7 @@ button:hover {
 
 /* Bouton secondaire */
 .btn-secondary {
-  background-color: #ffffff;
+  background-color: var(--surface);
   color: var(--text-muted);
   border-color: var(--border);
 }
