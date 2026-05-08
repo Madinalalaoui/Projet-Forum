@@ -125,7 +125,6 @@ ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash automatisation/se
 ├── src/
 │   ├── config.js         # URL de l'API
 │   ├── utils/messages.js # Utilitaires partagés (création, suppression, formatage)
-│   ├── utils/messages.js # Utilitaires partagés (création, suppression, formatage)
 │   ├── pages/            # LoginPage, SignupPage, ForumPage, ProfilPage, AdminDashboard
 │   ├── components/
 │   │   ├── forum/        # Message, MessageList, MessageForm, ForumType
