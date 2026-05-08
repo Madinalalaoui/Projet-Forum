@@ -287,7 +287,6 @@
   height: 32px;
   border-radius: 50%;
   background-color: var(--primary);
-  border: 1px solid var(--border);
   color: #ffffff;
   font-size: 0.78rem;
   font-weight: 700;

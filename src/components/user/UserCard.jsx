@@ -5,7 +5,7 @@ function UserCard({ user }) {
     <div className="user-card">
       <img src={profilImg} alt="Photo de profil" className="user-avatar" />
       <div className="user-info">
-        <h2 className="user-fullname">{user.firstName} {user.lastName}</h2>
+        <h2 className="user-fullname">{user.firstName}<br />{user.lastName}</h2>
         <p className="user-username">@{user.username}</p>
         <span className={`user-role role-${user.role}`}>{user.role}</span>
       </div>
