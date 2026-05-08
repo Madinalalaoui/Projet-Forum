@@ -4,7 +4,7 @@
 :root {
   --bg:             #f4f4f5;
   --surface:        #fafafa;
-  --border:         #e4e4e7;
+  --border:         #b5c5d8;
   --border-accent:  #71717a;
   --primary:        #18181b;
   --primary-hover:  #27272a;
@@ -137,7 +137,7 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: #a1a1aa;
+  border-color: #738094;
   box-shadow: 0 0 0 3px rgba(24,24,27,0.06);
 }
 
