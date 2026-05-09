@@ -62,7 +62,7 @@ def post_articles(articles):
             "reponses": [],
             "likes": []
         }
-        messages.append(new_message)
+        messages.insert(0, new_message)
         new_posts += 1
     if new_posts > 0:
         requests.put(f"{API_URL}/messages", json={"messages": messages}, headers={"Content-Type": "application/json"})
