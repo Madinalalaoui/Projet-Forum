@@ -14,13 +14,6 @@ Application web de forum pour une association. Gestion des membres, des rôles e
 - Dashboard admin : valider/rejeter les inscriptions, promouvoir/rétrograder les membres
 - **Bot Captain Hook** : publie automatiquement des posts cybersécurité chaque matin à 8h
 
-
-
-
-
-
-
-
 ---
 
 ## Stack technique
@@ -47,28 +40,24 @@ Application web de forum pour une association. Gestion des membres, des rôles e
 
 ## Lancer le projet en local
 
-
-
 **1. Installer les dépendances**
 ```bash
 npm install
 pip3 install requests beautifulsoup4
+pip3 install requests beautifulsoup4
 ```
 
 **2. Lancer le backend**
-
 ```bash
 node server/server.js
 ```
 
 **3. Lancer le frontend** (dans un autre terminal)
-
 ```bash
 npm run dev
 ```
 
 **4. Lancer le bot manuellement** (optionnel)
-
 ```bash
 python3 cyber_forum_bot.py
 ```
@@ -80,25 +69,51 @@ python3 cyber_forum_bot.py
 
 > Le premier compte créé via l'interface devient automatiquement administrateur.
 
+---
 
-> En déploiement cloud, on remplace `localhost` par l'IP publique de la VM (L'IP peut changer à chaque recréation de la VM. IP actuelle : http://34.155.149.189:5173)
+## Lancer le projet sur la VM
+
+**Backend**
+```bash
+pm2 start server/server.js --name forum-backend --interpreter node
+```
+
+**Frontend**
+```bash
+pm2 start "serve -s dist -l 5173" --name forum-frontend
+```
+
+**Vérifier les services**
+```bash
+pm2 list
+pm2 logs forum-backend
+```
+
+**Rebuild après une modification**
+```bash
+npm run build && pm2 restart forum-frontend
+```
+
+> Le forum est accessible sur **https://organiz-asso.ddns.net**
 
 ---
 
-## Déploiement sur Google Cloud (Ne pas le faire c'est juste pour l'explication)
+## Déploiement sur Google Cloud (Déjà réalisé)
+
+> /!\ Les scripts de déploiement sont dans le dossier `automatisation/`.
 
 **1. Déployer l'infrastructure**
 ```bash
-ADMIN_PASSWORD="tonmotdepasse" bash deploy.sh
+ADMIN_PASSWORD="tonmotdepasse" bash automatisation/deploy.sh
 ```
 
-Crée la VM, installe les dépendances, clone le repo, lance les services et configure le cron — en une seule commande. L'IP du forum s'affiche à la fin.
-
+Crée la VM, installe les dépendances, clone le repo, configure Nginx + SSL, lance les services et configure le cron — en une seule commande.
 
 **2. Initialiser les comptes**
 ```bash
-ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash seed.sh
+ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash automatisation/seed.sh
 ```
+
 
 ---
 
@@ -106,7 +121,6 @@ ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash seed.sh
 
 ```
 ├── server/
-@@ -98,42 +97,25 @@ ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash seed.sh
 │
 ├── src/
 │   ├── config.js         # URL de l'API
@@ -120,9 +134,11 @@ ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash seed.sh
 │       ├── styles/       # CSS par composant
 │       └── images/
 │
-├── cyber_forum_bot.py    # Bot de veille cybersécurité
-├── deploy.sh             # Script de déploiement automatique
-└── seed.sh               # Script d'initialisation des comptes
+├── automatisation/
+│   ├── deploy.sh         # Script de déploiement automatique
+│   └── seed.sh           # Script d'initialisation des comptes
+│
+└── cyber_forum_bot.py    # Bot de veille cybersécurité
 ```
 
 ---
@@ -143,9 +159,6 @@ ADMIN_PASSWORD="tonmotdepasse" CAPTAIN_PASSWORD="mdp_bot" bash seed.sh
 
 **Forum :**
 [`photo Forum`](rendus/forum.png)
-
-
-
 
 ---
 
