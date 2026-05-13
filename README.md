@@ -63,11 +63,11 @@ npm run dev
 ## Comptes de connexion 
 
 - Admin:
-    username: madina
-    password: Web123;
+    username: madina /
+    password: Web123; /
 
 - Member:
-    username: jade
+    username: jade /
     password: Web789;
 
 ## Arborescence
