@@ -155,6 +155,38 @@ app.put("/messages", (req, res) => {
   });
 });
 
+async function seed() {
+  const db = await connectDB();
+
+  const count = await db.collection("users").countDocuments();
+
+  if (count === 0) {
+    console.log("Base vide : peuplement initial");
+
+    await initDB({
+      username: "madina",
+      password: "Web123;",
+      role: "admin",
+      firstName: "Madina",
+      lastName: "LALAOUI",
+      status: "validated",
+    });
+
+    await initDB({
+      username: "jade",
+      password: "Web789;",
+      role: "member",
+      firstName: "Jade",
+      lastName: "DUPONT",
+      status: "validated",
+    });
+  } else {
+    console.log("Base déjà peuplée : rien à faire");
+  }
+}
+
+seed();
+
 app.listen(3001, () => {
   console.log("Serveur démarré sur http://localhost:3001");
 });
