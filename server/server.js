@@ -180,7 +180,7 @@ async function seed() {
       lastName: "DUPONT",
       status: "validated",
     });
-  } else {
+  } else { 
     console.log("Base déjà peuplée : rien à faire");
   }
 }
