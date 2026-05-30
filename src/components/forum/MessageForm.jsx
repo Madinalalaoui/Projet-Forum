@@ -11,6 +11,7 @@ function MessageForm({ addMsg, user }) {
     e.preventDefault();
     if (!contenu.trim()) return;
     addMsg(createMessage(user.username, contenu));
+    console.log("utilisateur a posté un message :", user.username);
     setContenu('');
   };
 

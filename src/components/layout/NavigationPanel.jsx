@@ -40,12 +40,18 @@ function NavigationPanel({ user, isConnected, logout }) {
         )}
       </div>
 
-      {isConnected && (
-        <button className="nav-logout" onClick={logout}>
-          <LogOut size={14} />
-          Déconnexion
-        </button>
-      )}
+        {isConnected && (
+      <button
+        className="nav-logout"
+        onClick={() => {
+          console.log("utilisateur déconnecté :", user?.username);
+          logout();
+        }}
+      >
+        <LogOut size={14} />
+        Déconnexion
+      </button>
+    )}
     </nav>
   );
 }

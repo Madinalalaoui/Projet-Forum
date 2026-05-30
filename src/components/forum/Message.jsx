@@ -18,6 +18,7 @@ function Message({ auteur, createdAt, contenu, reponses, id,likes, onDelete, use
 
 const handleLike = () => {
   if (!user) return;
+  console.log("utilisateur a liké un message ❤️ :", user.username, "message :", id);
   onLike(id, user.username);
 };
 
@@ -50,7 +51,13 @@ const handleLike = () => {
               </button>
 
               {canDelete && (
-                <button className="btn-danger" onClick={() => onDelete(id)}>
+                <button className="btn-danger" onClick={() => {
+                  console.log("utilisateur a supprimé un message 🗑️ :", {
+                        id,
+                        auteur,
+                        contenu
+                      });
+                        onDelete(id); }}>
                   <Trash2 size={12} />
                   Supprimer
                 </button>

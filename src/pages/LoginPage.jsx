@@ -25,6 +25,7 @@ function LoginPage({ login }) {
         return;
       }
       login(data);
+      console.log("Utilisateur connecté :", data.username);
     } catch (err) {
       setError("Erreur de connexion au serveur.");
     }
