@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../config.js';
 import '../assets/styles/Login.css';
 
+// Page de connexion.
+// Envoie les identifiants au serveur via POST /login.
+// En cas de succès, appelle le callback login (défini dans App) qui stocke l'utilisateur
+// dans le localStorage et redirige vers /forum.
 function LoginPage({ login }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,9 +25,11 @@ function LoginPage({ login }) {
       });
       const data = await res.json();
       if (!res.ok) {
+        // Affiche le message d'erreur renvoyé par le serveur (compte non trouvé, en attente, etc.)
         setError(data.message || "Utilisateur ou mot de passe incorrect");
         return;
       }
+      // Transmet les données utilisateur au composant App pour stocker la session
       login(data);
       console.log("Utilisateur connecté :", data.username);
     } catch (err) {
@@ -53,6 +59,7 @@ function LoginPage({ login }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {/* Bascule entre affichage en clair et masqué */}
             <button type="button" onClick={() => setShowPassword(!showPassword)}>
               {showPassword ? "Masquer" : "Afficher"}
             </button>

@@ -8,31 +8,43 @@ import ForumType from '../components/forum/ForumType.jsx';
 import { deleteRecursive, addReplyRecursive } from '../utils/messages.js';
 import '../assets/styles/ForumPage.css';
 
+// Page principale du forum.
+// Gère la sélection du forum actif, le filtrage des messages (mot-clé + plage de dates),
+// et orchestre les actions utilisateur (poster, supprimer, répondre, liker).
+// Les messages sont stockés dans App et passés ici via props pour être modifiés via setMessages.
 function ForumPage({ user, forums, messages, setMessages }) {
+  // Forum sélectionné par défaut : le premier de la liste (Forum Public)
   const [currentForum, setCurrentForum] = useState(forums[0]);
-  const [query, setQuery] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [query, setQuery] = useState('');       // Filtre texte (contenu ou auteur)
+  const [startDate, setStartDate] = useState(''); // Borne inférieure de la plage de dates
+  const [endDate, setEndDate] = useState('');     // Borne supérieure de la plage de dates
   const navigate = useNavigate();
 
+  // Un utilisateur peut accéder au forum privé uniquement s'il est admin
   const canAccessPrivate = !currentForum.private || user?.role === "admin";
 
+  // Ajoute le message en tête de liste avec l'id du forum courant
   const handleAddMessage = (msg) => {
     setMessages(prev => [{ ...msg, forumId: currentForum.id }, ...prev]);
   };
 
+  // Supprime un message par son id (y compris dans les réponses imbriquées)
   const handleDeleteMessage = (id) => {
     setMessages(prev => deleteRecursive(prev, id));
   };
 
+  // Ajoute une réponse à un message cible, à n'importe quelle profondeur
   const handleReply = (idMessage, reponse) => {
     setMessages(prev => addReplyRecursive(prev, idMessage, reponse));
   };
 
-const handleLike = (id, username) => {
-  setMessages(prev => toggleLikeRecursive(prev, id, username));
-};
+  // Toggle le like d'un utilisateur sur un message (ajoute ou retire)
+  const handleLike = (id, username) => {
+    setMessages(prev => toggleLikeRecursive(prev, id, username));
+  };
 
+  // Vérifie si un message correspond aux filtres actifs (texte et/ou dates).
+  // La borne de fin est fixée à 23h59:59 pour inclure toute la journée sélectionnée.
   const messageMatchesFilters = (msg) => {
     const q = query.trim().toLowerCase();
     const textOk = !q
@@ -46,6 +58,8 @@ const handleLike = (id, username) => {
     return textOk && (!startBound || messageDate >= startBound) && (!endBound || messageDate <= endBound);
   };
 
+  // Filtre récursivement : conserve un message s'il correspond OU si l'une de ses réponses correspond.
+  // Cela évite de masquer un fil de discussion entier à cause d'un seul message hors filtre.
   const filterMessagesRecursive = (list) => list.reduce((acc, msg) => {
     const filteredReplies = filterMessagesRecursive(msg.reponses || []);
     if (messageMatchesFilters(msg) || filteredReplies.length > 0) {
@@ -54,6 +68,7 @@ const handleLike = (id, username) => {
     return acc;
   }, []);
 
+  // Isole les messages du forum courant (forumId absent = forum public par défaut)
   const messagesForCurrentForum = messages.filter(msg => (msg.forumId ?? 1) === currentForum.id);
   const filteredMessages = filterMessagesRecursive(messagesForCurrentForum);
   const hasActiveFilters = query.trim() || startDate || endDate;
@@ -63,6 +78,7 @@ const handleLike = (id, username) => {
 
       <aside className="left-sidebar">
 
+        {/* Sélecteur de forum */}
         <section className="sidebar-section">
           <ForumType
             forums={forums}
@@ -72,6 +88,7 @@ const handleLike = (id, username) => {
           />
         </section>
 
+        {/* Panneau de recherche avec filtres texte et dates */}
         <section className="sidebar-section">
           <p className="section-label">
             <Search size={13} />
@@ -102,6 +119,7 @@ const handleLike = (id, username) => {
               />
             </div>
           </div>
+          {/* Bouton de réinitialisation visible uniquement si un filtre est actif */}
           {hasActiveFilters && (
             <button
               type="button"
@@ -131,6 +149,7 @@ const handleLike = (id, username) => {
             )}
           </div>
 
+          {/* Mur d'accès refusé pour les non-admins sur le forum privé */}
           {!canAccessPrivate ? (
             <div className="access-denied">
               <Lock size={32} />
@@ -145,11 +164,13 @@ const handleLike = (id, username) => {
                   user={user}
                   onReply={handleReply}
                   onLike={handleLike}
+                  // Navigation vers le profil d'un auteur via son username dans l'URL
                   onViewProfile={(username) => navigate(`/profil/${username}`)}
                 />
               </div>
 
               <div className="message-input-area">
+                {/* Formulaire affiché si connecté, sinon invitation à se connecter */}
                 {user ? (
                   <MessageForm addMsg={handleAddMessage} user={user} />
                 ) : (

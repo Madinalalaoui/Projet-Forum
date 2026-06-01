@@ -7,6 +7,8 @@ import { deleteRecursive, formatDate } from '../utils/messages.js';
 import { API_URL } from '../config.js';
 import '../assets/styles/Profil.css';
 
+// Parcourt récursivement tout l'arbre de messages pour collecter ceux d'un utilisateur donné,
+// y compris les réponses imbriquées à n'importe quelle profondeur.
 function getUserMessages(allMessages, username) {
   const result = [];
   const visit = (list) => {
@@ -19,14 +21,18 @@ function getUserMessages(allMessages, username) {
   return result;
 }
 
+// Page de profil d'un utilisateur, accessible via l'URL /profil/:username.
+// Si c'est le profil de l'utilisateur connecté, les données viennent du state local (pas de fetch).
+// Sinon, on interroge GET /users/:username pour récupérer les informations de l'utilisateur visité.
 function ProfilPage({ user, messages = [], setMessages }) {
-  const { username } = useParams();
+  const { username } = useParams(); // Récupère le username depuis l'URL
   const [viewedUser, setViewedUser] = useState(null);
 
   const isOwnProfile = username === user?.username;
 
   useEffect(() => {
     if (isOwnProfile) {
+      // Pas de requête réseau si l'utilisateur consulte son propre profil
       setViewedUser({
         username: user.username,
         firstName: user.firstName,
@@ -37,6 +43,7 @@ function ProfilPage({ user, messages = [], setMessages }) {
       return;
     }
 
+    // Fetch le profil de l'utilisateur visité depuis l'API
     fetch(`${API_URL}/users/${username}`)
       .then(res => {
         if (!res.ok) throw new Error("Utilisateur non trouvé");
@@ -44,7 +51,7 @@ function ProfilPage({ user, messages = [], setMessages }) {
       })
       .then(data => setViewedUser({ ...data, photo: profilImg }))
       .catch(() => setViewedUser(null));
-  }, [username]);
+  }, [username]); // Se redéclenche si le username dans l'URL change
 
   if (!user) {
     return (
@@ -62,10 +69,12 @@ function ProfilPage({ user, messages = [], setMessages }) {
     );
   }
 
+  // Suppression d'un message : propagée au state global via setMessages dans App
   const handleDelete = (id) => {
     setMessages(prev => deleteRecursive(prev, id));
   };
 
+  // Collecte tous les messages de l'utilisateur consulté (top-level + imbriqués)
   const userMessages = getUserMessages(messages, viewedUser.username);
 
   return (
@@ -90,11 +99,12 @@ function ProfilPage({ user, messages = [], setMessages }) {
                 <li key={msg.id} className="profil-message-item">
                   <div className="profil-msg-header">
                     <div className="profil-msg-meta-info">
-                    <time className="profil-msg-date">{formatDate(msg.createdAt)}</time>
-                    <span className="profil-msg-likes" style={{ marginLeft: '10px', color: '#e0245e' }}>
-                      ❤️ {msg.likes?.length || 0}
-                    </span>
-                  </div>
+                      <time className="profil-msg-date">{formatDate(msg.createdAt)}</time>
+                      <span className="profil-msg-likes" style={{ marginLeft: '10px', color: '#e0245e' }}>
+                        ❤️ {msg.likes?.length || 0}
+                      </span>
+                    </div>
+                    {/* Bouton de suppression visible uniquement sur son propre profil */}
                     {isOwnProfile && (
                       <button className="btn-danger" onClick={() => handleDelete(msg.id)}>
                         <Trash2 size={12} />

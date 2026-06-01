@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../config.js';
 import '../assets/styles/Signup.css';
 
+// Page d'inscription.
+// Valide les champs côté client avant d'envoyer la requête POST /signup.
+// Après succès, affiche un message de confirmation et redirige vers /login après 2,5 secondes.
+// Note : le premier compte créé devient automatiquement admin (logique gérée côté serveur).
 function SignupPage() {
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -18,11 +22,13 @@ function SignupPage() {
   const handleSubmit = async () => {
     setError('');
 
+    // Validation côté client : champs obligatoires
     if (!username.trim() || !pass1.trim()) {
       setError("Nom d'utilisateur et mot de passe requis.");
       return;
     }
 
+    // Vérification de la correspondance des deux mots de passe
     if (pass1 !== pass2) {
       setError("Les mots de passe ne correspondent pas.");
       return;
@@ -38,6 +44,7 @@ function SignupPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Erreur lors de l'inscription");
 
+      // Affiche le message de succès et redirige automatiquement vers la connexion
       setSuccess(true);
       setTimeout(() => navigate('/login'), 2500);
     } catch (err) {
@@ -45,6 +52,7 @@ function SignupPage() {
     }
   };
 
+  // Réinitialise tous les champs du formulaire
   const handleReset = () => {
     setPass1(''); setPass2('');
     setUsername(''); setFirstName(''); setLastName('');
@@ -54,6 +62,7 @@ function SignupPage() {
   return (
     <div className="signin-container">
       <h1>Créer un compte</h1>
+      {/* onSubmit empêche le rechargement de page ; la soumission est gérée par handleSubmit */}
       <form className="signin-form" onSubmit={(e) => e.preventDefault()}>
 
         <div className="form-group">
@@ -105,6 +114,7 @@ function SignupPage() {
         {success && <p className="success-message">Compte créé ! Redirection vers la connexion…</p>}
 
         <div className="form-actions">
+          {/* disabled pendant le succès pour éviter une double soumission */}
           <button type="button" className="btn-primary" onClick={handleSubmit} disabled={success}>
             S'inscrire
           </button>
