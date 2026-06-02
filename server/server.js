@@ -210,7 +210,7 @@ async function seed() {
     // Compte administrateur principal
     await initDB({
       username: "madina",
-      password: "Web123",
+      password: "Web123;",
       role: "admin",
       firstName: "Madina",
       lastName: "LALAOUI",
@@ -219,11 +219,11 @@ async function seed() {
 
     // Compte membre de démonstration
     await initDB({
-      username: "rasheequa",
-      password: "Web789",
+      username: "jade",
+      password: "Web789;",
       role: "member",
-      firstName: "Rasheequa",
-      lastName: "BAGADADSAIB",
+      firstName: "Jade",
+      lastName: "DUPONT",
       status: "validated",
     });
   } else {
